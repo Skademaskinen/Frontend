@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<body>
+    <iframe id="player" src="https://youtu.be/inc1ww8Sz0I" width=1280px height="720px">
+    </iframe>
+    <button onclick="previous()">Previous</button>
+    <button onclick="next()">Next</button>
+    <script>
+        var videos = ["https://youtu.be/inc1ww8Sz0I", "https://youtu.be/_7ZQtgx3PBw", "https://youtu.be/3A5-TKMXHqE", "https://youtu.be/5kLDeERwdHg"]
+        current = 0
+        console.log(videos)
+        function next() {
+            if (current != videos.length - 1) {
+                current = current + 1
+            }
+            else {
+                current = 0
+            }
+            document.getElementById("player").src = videos[current]
+        }
+        function previous() {
+            if (current != 0) {
+                current = current - 1
+            }
+            else {
+                current = videos.length - 1
+            }
+            document.getElementById("player").src = videos[current]
+        }
+    </script>
+</body>
