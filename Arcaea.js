@@ -27,7 +27,7 @@ for (var i = 0; i < videos.length; i++) {
         var index = event.target.innerHTML.substring(7)
         console.log(index)
         document.getElementById("player").src = videos[index]
-        current = i
+        current = index
     }
     button.innerHTML = "video #" + i
     document.getElementById("parent").appendChild(button)
