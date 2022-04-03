@@ -2,9 +2,7 @@ var videos = []
 var current = []
 const json = get_json()
 json.then(data => {
-    console.log(data)
-    videos = data
-
+    videos = data["videos"]
     for (var i = 0; i < videos.length; i++) {
         current[i] = 0
     }
