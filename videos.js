@@ -1,11 +1,46 @@
-//var videos = [
-//    ["https://www.youtube.com/embed/inc1ww8Sz0I", "https://www.youtube.com/embed/_7ZQtgx3PBw", "https://www.youtube.com/embed/3A5-TKMXHqE", "https://www.youtube.com/embed/5kLDeERwdHg"],
-//    ["https://youtube.com/embed/XzWAQS1N2Uk", "https://youtube.com/embed/nLxny7q7w3k", "https://youtube.com/embed/q3jtp5_PYqU", "https://youtube.com/embed/54mVOqvGxaQ", "https://youtube.com/embed/793PC3QTc1U", "https://youtube.com/embed/kx_cyxxUR6Y", "https://youtube.com/embed/yDFWws8SYi4", "https://youtube.com/embed/gFEAMMrw2e4", "https://youtube.com/embed/-99OlEigvao", "https://youtube.com/embed/I5_SiWR0b3Q", "https://youtube.com/embed/41g4WieIVNA", "https://youtube.com/embed/9L5Bi5Jx_dI", "https://youtube.com/embed/nYyCZ42npPI", "https://youtube.com/embed/gYkt-XtTm9M", "https://youtube.com/embed/2oiRveYgZHQ",],
-//    ["https://youtube.com/embed/YA2GsBEoXiE", "https://youtube.com/embed/QaFckRerl-A", "https://youtube.com/embed/AE_EGtkLLRk", "https://youtube.com/embed/KEBb0DSb5tg", "https://youtube.com/embed/VLxAAO0jUuM", "https://youtube.com/embed/X_YVjT6vo7Q", "https://youtube.com/embed/W0zcKH5BfAo", "https://youtube.com/embed/ykEh-K4vkdw", "https://youtube.com/embed/nU-wVMtWOjA", "https://youtube.com/embed/eLDrdH0bWhY", "https://youtube.com/embed/VK_qqK7zs-8", "https://youtube.com/embed/mphA7fhATh8", "https://youtube.com/embed/189VChlnAK4"]]
-var videos = []
-fetch("videos.json").then(response => response.text()).then(data => {
-    videos = JSON.parse(data)
-})
+var videos = [
+    [
+        "https://www.youtube.com/embed/inc1ww8Sz0I",
+        "https://www.youtube.com/embed/_7ZQtgx3PBw",
+        "https://www.youtube.com/embed/3A5-TKMXHqE",
+        "https://www.youtube.com/embed/5kLDeERwdHg"
+    ],
+    [
+        "https://youtube.com/embed/XzWAQS1N2Uk",
+        "https://youtube.com/embed/nLxny7q7w3k",
+        "https://youtube.com/embed/q3jtp5_PYqU",
+        "https://youtube.com/embed/54mVOqvGxaQ",
+        "https://youtube.com/embed/793PC3QTc1U",
+        "https://youtube.com/embed/kx_cyxxUR6Y",
+        "https://youtube.com/embed/yDFWws8SYi4",
+        "https://youtube.com/embed/gFEAMMrw2e4",
+        "https://youtube.com/embed/-99OlEigvao",
+        "https://youtube.com/embed/I5_SiWR0b3Q",
+        "https://youtube.com/embed/41g4WieIVNA",
+        "https://youtube.com/embed/9L5Bi5Jx_dI",
+        "https://youtube.com/embed/nYyCZ42npPI",
+        "https://youtube.com/embed/gYkt-XtTm9M",
+        "https://youtube.com/embed/2oiRveYgZHQ"
+    ],
+    [
+        "https://youtube.com/embed/YA2GsBEoXiE",
+        "https://youtube.com/embed/QaFckRerl-A",
+        "https://youtube.com/embed/AE_EGtkLLRk",
+        "https://youtube.com/embed/KEBb0DSb5tg",
+        "https://youtube.com/embed/VLxAAO0jUuM",
+        "https://youtube.com/embed/X_YVjT6vo7Q",
+        "https://youtube.com/embed/W0zcKH5BfAo",
+        "https://youtube.com/embed/ykEh-K4vkdw",
+        "https://youtube.com/embed/nU-wVMtWOjA",
+        "https://youtube.com/embed/eLDrdH0bWhY",
+        "https://youtube.com/embed/VK_qqK7zs-8",
+        "https://youtube.com/embed/mphA7fhATh8",
+        "https://youtube.com/embed/189VChlnAK4"
+    ]
+]
+//fetch("videos.json").then(response => response.text()).then(data => {
+//    videos = JSON.parse(data)
+//})
 var current = []
 for (var i = 0; i < videos.length; i++) {
     current[i] = 0
