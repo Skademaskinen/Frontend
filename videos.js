@@ -1,8 +1,12 @@
 var videos = []
+var headings = []
+var texts = []
 var current = []
 const json = get_json()
 json.then(data => {
     videos = data["videos"]
+    headings = data["headings"]
+    texts = data["text"]
     for (var i = 0; i < videos.length; i++) {
         current[i] = 0
     }
@@ -38,7 +42,15 @@ function previous(index) {
 function gen_page() {
     for (var i = 0; i < videos.length; i++) {
         //create stuff there is only one of, ie prev, next buttons and video player
-        var master = document.getElementById("section" + i)
+        var master = document.getElementById("master")
+        heading = document.createElement("h2")
+        heading.innerHTML = headings[i]
+        heading.style = "text-align: center; color: white; font-family: Arial, Helvetica, sans-serif; width: 50%; margin: auto; "
+        master.appendChild(heading)
+        text = document.createElement("p")
+        text.innerHTML = texts[i]
+        text.style = "text-align: center; color: white; font-family: Arial, Helvetica, sans-serif; width: 50%; margin: auto; "
+        master.appendChild(text)
         player_div = document.createElement("div")
         player_div.style = "text-align: center"
         master.appendChild(player_div)
@@ -71,6 +83,8 @@ function gen_page() {
         btn_sec.id = "parent" + i
         btn_sec.style = "text-align:center"
         master.appendChild(btn_sec)
+        br = document.createElement("br")
+        master.appendChild(br)
         for (var j = 0; j < videos[i].length; j++) {
             //create stuff there is multiple of
             button = document.createElement("button")
