@@ -11,7 +11,7 @@ function header() {
     contact = document.createElement("a")
     hr = document.createElement("hr")
     div.id = "div"
-    index.href = "index.html"
+    index.href = "./"
     index.innerHTML = "Home"
     repo.href = "https://github.com/Mast3rwaf1z/Mast3rwaf1z.github.io"
     repo.innerHTML = "Source"
