@@ -1,4 +1,4 @@
-function header() {
+function header() {//make smarter with json later
     master = document.getElementById("header")
     div = document.createElement("div")
     index = document.createElement("a")
@@ -7,6 +7,7 @@ function header() {
     moerbot = document.createElement("a")
     shitgame = document.createElement("a")
     rp = document.createElement("a")
+    guestbook = document.createElement("a")
     gaming = document.createElement("a")
     contact = document.createElement("a")
     hr = document.createElement("hr")
@@ -23,10 +24,14 @@ function header() {
     shitgame.innerHTML = "Shitgame"
     rp.href = "https://github.com/Mast3rwaf1z/rp"
     rp.innerHTML = "RP"
+    guestbook.href = "http://skademaskinen.win:27676/guestbook"
+    guestbook.innerHTML = "Guestbook"
     gaming.href = "games.html"
     gaming.innerHTML = "Gaming"
     contact.href = "contact.html"
     contact.innerHTML = "Contact"
+
+
     div.appendChild(index)
     div.appendChild(document.createTextNode(" | "))
     div.appendChild(repo)
@@ -38,6 +43,8 @@ function header() {
     div.appendChild(shitgame)
     div.appendChild(document.createTextNode(" | "))
     div.appendChild(rp)
+    div.appendChild(document.createTextNode(" | "))
+    div.appendChild(guestbook)
     div.appendChild(document.createTextNode(" | "))
     div.appendChild(gaming)
     div.appendChild(document.createTextNode(" | "))
