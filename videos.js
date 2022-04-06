@@ -117,4 +117,6 @@ function gen_page() {
         }
         master.appendChild(document.createElement("hr"))
     }
+    document.getElementById("player0").width = "1200"
+    document.getElementById("player0").height = "540"
 }
