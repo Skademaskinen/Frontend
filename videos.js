@@ -21,21 +21,27 @@ async function get_json() {
     return await response.json()
 }
 function next(index) {
+    previous_element = current[index]
     if (current[index] != videos[index].length - 1) {
         current[index] = current[index] + 1
     }
     else {
         current[index] = 0
     }
+    document.getElementById("button" + index + current[index]).style = "background: red;"
+    document.getElementById("button" + index + previous_element).style = "background: black;"
     document.getElementById("player" + index).src = videos[index][current[index]]
 }
 function previous(index) {
+    previous_element = current[index]
     if (current[index] != 0) {
         current[index] = current[index] - 1
     }
     else {
         current[index] = videos[index].length - 1
     }
+    document.getElementById("button" + index + current[index]).style = "background: red;"
+    document.getElementById("button" + index + previous_element).style = "background: black;"
     document.getElementById("player" + index).src = videos[index][current[index]]
 }
 
@@ -63,14 +69,15 @@ function gen_page() {
         player.allow = "fullscreen"
         player_div.appendChild(player)
         btn_div = document.createElement("div")
-        btn_div.style = "text-align: center"
+        btn_div.style = "text-align: center; color: white;"
         master.appendChild(btn_div)
         prev_btn = document.createElement("button")
         prev_btn.id = i
         prev_btn.onclick = event => {
-            next(event.target.id)
+            previous(event.target.id)
         }
         prev_btn.innerHTML = "Previous"
+        prev_btn.style = "background: black;"
         btn_div.appendChild(prev_btn)
         next_btn = document.createElement("button")
         next_btn.id = i
@@ -78,10 +85,11 @@ function gen_page() {
             next(event.target.id)
         }
         next_btn.innerHTML = "Next"
+        next_btn.style = "background: black;"
         btn_div.appendChild(next_btn)
         btn_sec = document.createElement("section")
         btn_sec.id = "parent" + i
-        btn_sec.style = "text-align:center"
+        btn_sec.style = "text-align: center; color: white;"
         master.appendChild(btn_sec)
         br = document.createElement("br")
         master.appendChild(br)
@@ -89,14 +97,24 @@ function gen_page() {
             //create stuff there is multiple of
             button = document.createElement("button")
             button.id = "button" + i + j
+            if (j != 0) {
+                button.style = "background: black;"
+            }
+            else {
+                button.style = "background: red;"
+            }
             button.onclick = event => {
                 var player_id = event.target.id.substring(6, 7)
-                var index = event.target.id.substring(7)
+                var index = parseInt(event.target.id.substring(7))
+                console.log(player_id, current[player_id])
+                document.getElementById("button" + player_id + current[player_id]).style = "background: black;"
+                event.target.style = "background: red;"
                 document.getElementById("player" + player_id).src = videos[player_id][index]
-                current[i] = index
+                current[player_id] = index
             }
-            button.innerHTML = "video #" + j
+            button.innerHTML = "video #" + (j + 1)
             btn_sec.appendChild(button)
         }
+        master.appendChild(document.createElement("hr"))
     }
 }

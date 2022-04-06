@@ -18,6 +18,10 @@ a:active {
     text-decoration: none;
 }
 
+button {
+    color: white;
+    background-color: black;
+}
 
 footer {
     text-align: center;
