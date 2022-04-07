@@ -67,6 +67,24 @@ function footer() {
 }
 
 
+function smarter_header(){
+    const json = get_json("https://about.skademaskinen.win/layout.json")
+    json.then(data => {
+        urls = data["urls"]
+        names = data["names"]
+        for (var i = 0; i < videos.length; i++) {
+            current[i] = 0
+        }
+        gen_page()
+})
+}
+
+function get_json(url){
+    const request = new Request(url)
+    const response = await fetch(request)
+    return await response.json()
+}
+
 
 header()
 footer()
