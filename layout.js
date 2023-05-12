@@ -34,13 +34,22 @@ function header(){
         div.appendChild(document.createTextNode(" | "))
 
         select = document.createElement("select")
-        select.addEventListener("change", function(){console.log(select.value)})
-        test1 = document.createElement("option")
-        test1.text = "test1"
-        test2 = document.createElement("option")
-        test2.text = "test2"
-        select.add(test1)
-        select.add(test2)
+        //test1 = document.createElement("option")
+        //test1.text = "https://www.google.com"
+        //test2 = document.createElement("option")
+        //test2.text = "https://github.com"
+        //select.add(test1)
+        //select.add(test2)
+        entries = {}
+        for(index in data["blog"]){
+            entryName = data["blog"][index]["name"]
+            entryValue = data["blog"][index]["value"]
+            entries[entryName] = entryValue
+            option = document.createElement("option")
+            option.text = entryName
+            select.add(option)
+        }
+        select.addEventListener("change", function(){window.location.replace(entries[select.value])})
 
 
         div.appendChild(select)
