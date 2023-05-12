@@ -31,10 +31,27 @@ function header(){
             addrs[i].innerHTML = names[i]
             div.appendChild(addrs[i])
         }
+        div.appendChild(document.createTextNode(" | "))
+
+        select = document.createElement("select")
+        select.addEventListener("change", function(){console.log(select.value)})
+        test1 = document.createElement("option")
+        test1.text = "test1"
+        test2 = document.createElement("option")
+        test2.text = "test2"
+        select.add(test1)
+        select.add(test2)
+
+
+        div.appendChild(select)
+
         div.appendChild(document.createElement("hr"))
+
         master.appendChild(div)
         divE = document.querySelector("div")
         divE.classList.add("center")
+
+
 })
 }
 

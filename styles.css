@@ -40,3 +40,12 @@ footer {
     width: 50%;
     margin: auto;
 }
+
+select {
+    color: white;
+    background-color: black;
+    border-color: red;
+    border-radius: 5px;
+    
+}
+

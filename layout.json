@@ -22,5 +22,19 @@
         "Gaming",
         "Contact",
         "MyAnimeList"
+    ],
+    "blog":[
+        {
+            "name":"main",
+            "value":"./"
+        },
+        {
+            "name":"start",
+            "value":"blog/start.html"
+        },
+        {
+            "name":"Digital Design",
+            "value":"blog/digitalDesign.html"
+        }
     ]
 }
