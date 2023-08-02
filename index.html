@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <HTML>
+<link rel="stylesheet" href="dark.min.css">
+<script src="highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 
 <meta content="A site created to show a lot of stuff about me" property="og:description" />
 <meta content="https://about.skademaskinen.win" property="og:url" />
@@ -47,11 +50,12 @@
   <div class="center">
 	  <div style="text-align: left">
 	Bogosort - sorts an n sized set of numbers in an average case of O(n!), worst case of O(∞) and best case of O(n)
-      <pre><code>l = [4,3,2,1]
+  <pre><code class="language-python">from random import shuffle
+l = [4,3,2,1]
 def bogo(l:list):
-     from random import shuffle
-     while not all([1 if l[i] < l[i+1] else 0 for i in range(len(l) - 1)]): shuffle(l)
-     return l
+  while not all([1 if l[i] < l[i+1] else 0 for i in range(len(l) - 1)]): 
+    shuffle(l)
+  return l
 bogo(l)</code></pre>
 	  </div>
   </div>
