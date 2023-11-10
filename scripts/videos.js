@@ -141,4 +141,5 @@ sections.forEach(section => {
         button.innerHTML = "video #"+index
         directButtonContainer.appendChild(button)
     }
+    master.appendChild(document.createElement("hr"))
 })
