@@ -33,13 +33,15 @@ footer {
     width: 50%;
 }
 
-.center {
+.mainmatter {
     text-align: center;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    width: 50%;
+    width: 60%;
     margin: auto;
+    background-color: rgb(15,15,15);
 }
+
 
 select {
     color: white;
@@ -49,3 +51,6 @@ select {
     
 }
 
+html {
+    background-color: black;
+}

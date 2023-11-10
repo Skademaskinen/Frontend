@@ -1,70 +1,71 @@
 <!DOCTYPE html>
 <HTML>
-<link rel="stylesheet" href="dark.min.css">
-<script src="highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
-
-<meta content="A site created to show a lot of stuff about me" property="og:description" />
-<meta content="https://about.skademaskinen.win" property="og:url" />
-<meta content="https://cdn.discordapp.com/attachments/889964274229854248/1026586187441393825/IMG_20220716_114508.jpg" property="og:image" />
-<meta content="#FFFFFF" data-react-helmet="true" name="theme-color" />
-<meta name="twitter:card" content="summary_large_image">
-
-<HEAD>
-  <TITLE>Mast3r_waf1z - About me</TITLE>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="favicon.ico">
-</HEAD>
-
-<header id="header"></header>
-
-<BODY style="background-color:black">
-
-  <h1 class="center">Mast3r_waf1z - About me</h1>
-  <br>
-  <div class="center">
-    <IMG SRC="fire.gif" width=30% height=30%>
-    <IMG SRC="gif.gif" width=30% height=30%>
-    <IMG SRC="fire.gif" width=30% height=30%>
-  </div>
-  <div class="center">
-    Hi, I go by the name Mast3r_waf1z or Skademanden by some. I am a master's student in Software Engineering at Aalborg University and I take an interest in pretty much anything related to IT and software.
+<div class="mainmatter">
+  <link rel="stylesheet" href="dark.min.css">
+  <script src="scripts/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  
+  <meta content="A site created to show a lot of stuff about me" property="og:description" />
+  <meta content="https://about.skademaskinen.win" property="og:url" />
+  <meta content="https://cdn.discordapp.com/attachments/889964274229854248/1026586187441393825/IMG_20220716_114508.jpg" property="og:image" />
+  <meta content="#FFFFFF" data-react-helmet="true" name="theme-color" />
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.ico">
+  
+  <HEAD>
+    <TITLE>Mast3r_waf1z - About me</TITLE>
+    <link rel="stylesheet" href="styles.css">
+  </HEAD>
+  
+  <header id="header"></header>
+  
+  <BODY>
+    
+    <h1>Mast3r_waf1z - About me</h1>
     <br>
-    I graduated from Aalborg University in june 2023 with a bachelor's degree in Computer Engineering.
-    <br>
-    Everything on this website is written by hand in HTML, CSS and JavaScript, with no external tools other than embeds. I had no prior knowledge to any of those except a tutorial or two :)
-  </div>
-  <div class="center">
-    <img src="inverted_reversed_fspinner.gif" width=10% height=10%><br>
-    This site is not affiliated with F-klubben, i'm just a contributer. ref: <a href="https://fklub.dk">https://fklub.dk</a>
-    <div class="center">
-      <IMG SRC="skull.gif">
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/1920px-Tux.svg.png" width=5%>
+      <img src="https://archlinux.org/static/logos/archlinux-logo-light-90dpi.d36c53534a2b.png" width=20%> 
     </div>
-    <div class="center">
-      <button type="button" onclick=show_box()>CLICK ME!!!</button>
-      <button type="button" onclick="window.location.href='https://www.youtube.com/watch?v=iik25wqIuFo'">NO, CLICK
-        ME!!!!</button>
+    <div>
+      Hi, I go by the name Mast3r_waf1z or Skademanden by some. I am a master's student in Software Engineering at Aalborg University and I take an interest in pretty much anything related to IT and software.
+      <br>
+      I graduated from Aalborg University in june 2023 with a bachelor's degree in Computer Engineering.
+      <br>
+      Everything on this website is written by me in HTML, CSS and JavaScript, with no external tools other than embeds. I had no prior knowledge to any of those except a tutorial or two :)
+      <br>
+      Linux user and spreader of the good word of Linux Gaming.
     </div>
-    <div class="center">
-      <script type="text/javascript" src="https://www.counters-free.net/count/bg3w"></script><br>
+    <div>
+      <img src="assets/fspinner.gif" width=10% height=10%><br>
+      This site is not affiliated with F-klubben, i'm just a contributer. ref: <a href="https://fklub.dk">https://fklub.dk</a>
+      <div>
+        <IMG SRC="assets/skull.gif">
+      </div>
+      <div>
+        <button type="button" onclick=show_box()>CLICK ME!!!</button>
+        <button type="button" onclick="window.location.href='https://www.youtube.com/watch?v=iik25wqIuFo'">NO, CLICK ME!!!!</button>
+      </div>
+      <div>
+        <script type="text/javascript" src="https://www.counters-free.net/count/bg3w"></script><br>
+      </div>
     </div>
-  </div>
-  <div class="center">
-	  <div style="text-align: left">
-	Bogosort - sorts an n sized set of numbers in an average case of O(n!), worst case of O(∞) and best case of O(n)
-  <pre><code class="language-python">from random import shuffle
+    <div>
+      Bogosort - sorts an n sized set of numbers in an average case of O(n!), worst case of O(∞) and best case of O(n)
+      <pre><code class="language-python" style="margin: 1%;border-radius: 10px;text-align: left;">from random import shuffle
 l = [4,3,2,1]
 def bogo(l:list):
   while not all([1 if l[i] < l[i+1] else 0 for i in range(len(l) - 1)]): 
     shuffle(l)
   return l
-bogo(l)</code></pre><br>
-	  </div>
+bogo(l)
+      </code></pre><br>
+    </div>
+  </BODY>
+  <footer id="footer"></footer>
+
+  <script src="scripts/index.js"></script>
+  <script src="scripts/layout.js"></script>
+
   </div>
-</BODY>
-<footer id="footer"></footer>
-
-<script src="index.js"></script>
-<script src="layout.js"></script>
-
 </HTML>
