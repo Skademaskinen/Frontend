@@ -54,10 +54,12 @@
       </div>
     </div>
     <div>
-      <img src="assets/fire.gif" width="150px">
-      Bogosort - sorts an n sized set of numbers in an average case of O(n!), worst case of O(∞) and best case of O(n)
-      <img src="assets/fire.gif" width="150px">
-      <pre><code class="language-python" style="margin: 1%;border-radius: 10px;text-align: left;">from random import shuffle
+      <div style="display:flex; justify-content: center;">
+        <img src="assets/fire.gif" width="150px">
+        <p style="align-self:flex-end; margin-left:1%;margin-right: 1%;">Bogosort - sorts an n sized set of numbers in an average case of O(n!), worst case of O(∞) and best case of O(n)</p>
+        <img src="assets/fire.gif" width="150px">
+      </div>
+        <pre><code class="language-python" style="margin: 1%;border-radius: 10px;text-align: left;">from random import shuffle
 l = [4,3,2,1]
 def bogo(l:list):
   while not all([1 if l[i] < l[i+1] else 0 for i in range(len(l) - 1)]): 
