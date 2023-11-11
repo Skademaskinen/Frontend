@@ -100,6 +100,7 @@ sections.forEach(section => {
     previous = document.createElement("button")
     previous.innerHTML = "Previous"
     previous.id = section.header
+    previous.style = "width:100px"
     previous.onclick = event => {
         document.getElementById(section.header+section.index).style = "background:black"
         if(section.index != 0) section.index -= 1
@@ -113,6 +114,7 @@ sections.forEach(section => {
     next = document.createElement("button")
     next.innerHTML = "Next"
     next.id = section.header
+    next.style = "width:100px"
     next.onclick = event => {
         document.getElementById(section.header+section.index).style = "background:black"
         if(section.index != section.videos.length-1) section.index += 1
