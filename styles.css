@@ -96,3 +96,9 @@ select {
 html {
     background-color: black;
 }
+
+@media screen and (max-width: 640px){
+    .mainmatter{
+        width: 100%;
+    };
+}
