@@ -2,7 +2,7 @@ data = {
     "urls":[
         "./",
         "https://github.com/Mast3rwaf1z",
-        "https://github.com/Mast3rwaf1z/Mast3rwaf1z.github.io",
+        "sauce.html",
         "https://i.skademaskinen.win",
         "guestbook.html",
         "games.html",

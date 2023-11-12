@@ -59,6 +59,9 @@ button:disabled {
     cursor: not-allowed;
     opacity: 1;
 }
+button:hover {
+    background-color:#222222;
+}
 
 footer {
     text-align: center;
