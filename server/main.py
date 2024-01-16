@@ -22,7 +22,7 @@ class RequestHandler(http.BaseHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(json.dumps(db.getIds()).encode())
             case "/guestbook/api/get":
-                id = self.data["id"]
+                id = self.params["id"]
                 self.send_response(200)
                 self.end_headers()
                 self.wfile.write(json.dumps(db.get(id)).encode())
