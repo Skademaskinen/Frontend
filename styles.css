@@ -100,7 +100,7 @@ html {
     background-color: black;
 }
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 1366px){
     .mainmatter{
         width: 100%;
     };
