@@ -8,6 +8,7 @@ class RequestHandler(http.BaseHTTPRequestHandler):
         super().__init__(request, client_address, server)
 
     def common(self):
+        self.headers.add_header("Access-Control-Allow-Origin", "*")
         self.endpoint = self.path
         self.data = json.loads(self.rfile.read(int(self.headers.get('content-length'))).decode()) if self.rfile.readable() and not self.headers.get('content-length') == None else ""
 
