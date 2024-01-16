@@ -14,11 +14,11 @@ class RequestHandler(http.BaseHTTPRequestHandler):
     def do_GET(self):
         self.common()
         match self.endpoint:
-            case "/api/guestbook/all":
+            case "/api/all":
                 self.send_response(200)
                 self.end_headers()
                 self.wfile.write(json.dumps(db.getIds()).encode())
-            case "/api/guestbook/get":
+            case "/api/get":
                 id = self.data["id"]
                 self.send_response(200)
                 self.end_headers()
@@ -30,7 +30,7 @@ class RequestHandler(http.BaseHTTPRequestHandler):
     def do_POST(self):
         self.common()
         match self.endpoint:
-            case "/api/guestbook/add":
+            case "/api/add":
                 username = self.data["username"]
                 message = self.data["message"]
                 self.send_response(200)
@@ -40,7 +40,7 @@ class RequestHandler(http.BaseHTTPRequestHandler):
     def do_PUT(self):
         self.common()
         match self.endpoint:
-            case "/api/guestbook/like":
+            case "/api/like":
                 id = self.data["id"]
                 self.send_response(200)
                 self.end_headers()
@@ -49,7 +49,7 @@ class RequestHandler(http.BaseHTTPRequestHandler):
     def do_DELETE(self):
         self.common()
         match self.endpoint:
-            case "/api/guestbook/delete":
+            case "/api/delete":
                 id = self.data["id"]
                 self.send_response(200)
                 self.end_headers()
