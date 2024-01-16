@@ -10,10 +10,10 @@ class RequestHandler(http.BaseHTTPRequestHandler):
     def common(self):
         self.headers.add_header("Access-Control-Allow-Origin", "*")
         self.endpoint = self.path.split("?")[0]
+        self.params = {pairs.split("=")[0]:pairs.split("=")[1] for pairs in self.path.split("?", 1)[1].split("&")} if "?" in self.path else {}
     def get_data(self):
         self.data = json.loads(self.rfile.read(int(self.headers.get('content-length'))).decode()) if self.rfile.readable() and not self.headers.get('content-length') == None else ""
 
-        self.params = {pairs.split("=")[0]:pairs.split("=")[1] for pairs in self.endpoint.split("?", 1)[1].split("&")}
     def do_GET(self):
         self.common()
         match self.endpoint:
