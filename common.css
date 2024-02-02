@@ -6,6 +6,11 @@ html {
     padding-left:10%;
     padding-right:10%;
 }
+@media screen and (max-width: 1366px){
+    html{
+        padding:0%;
+    }
+}
 
 .mainmatter {
     background-color: rgb(20, 20, 20);
@@ -27,11 +32,13 @@ a:active{
     color: green;
     display: inline;
     padding:unset;
+    font-family: monospace;
 }
 .header_i{
     color: white;
     display: inline;
     padding:unset;
+    font-family: monospace;
 }
 .header_link:hover{
     color:rgb(100,255,100);
@@ -42,5 +49,108 @@ a:active{
 
 hr {
     background-color: white;
-    color: white;
+    color: #ff5500;
+} 
+
+.dropbtn {
+    all:unset;
+    background-color: unset;
+    color: green;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor:pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(50, 50, 50, 0.9);
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    border: solid 1px;
+    border-color: #ff5500;
+}
+
+.dropdown-content a {
+    background-color: rgba(100, 100, 100, 0);
+    color: green;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #222222;
+    color: rgb(100,255,100);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    color:rgb(100,255,100);
+    background-color: unset;
+} 
+
+.input_field{
+    color:white;
+    background-color: black;
+    border-color: #ff5500;
+    border: 2px solid;
+    border-radius: 8px;
+    width: 500px;
+    height:40px;
+    text-align: center;
+}
+.input_field:focus{
+    outline: none;
+    border-color: #ff5500;
+}
+input[type="checkbox"]{
+    display:none !important;
+}
+label{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+input[type="checkbox"]+label::before{
+    content: "";
+    display:inline-block;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+input[type="checkbox"]:checked+label::before {
+    content: '\2713';
+    display: inline-block;
+    border: 1px solid #ff5500;
+    place-content: center;
+}
+
+button{
+    color:white;
+    background-color: black;
+    border-color: #ff5500;
+    border: 2px solid;
+    border-radius: 8px;
+    width: 100px;
+    height: 35px;
+}
+button:hover{
+    background-color: #222222;
+}
+button:active{
+    background-color: #444444;
+    border-color: #ff5500;
 }

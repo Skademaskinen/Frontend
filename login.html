@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<script src="scripts/login.js"></script>
+<html>
+    <body id="body" class="mainmatter">
+        <h1>Skademaskinen : Skademanden's Remote Network Management System</h1>
+        <p>
+            This is a system to manage my servers and my home network, it is isolated such that it can only perform the actions that i have programmed in the backend.<br>
+            The system is capable of booting another system and to show the last 10 lines in journalctl for a specified service for a specified device.<br>
+            As a learning exercise, the backend has encrypted all personal information such that not even i can access the data without interfacing with it through this website!<br>
+        </p>
+
+        Username:<br>
+        <input type="text" class="input_field" id="username" value=""><br><br>
+        Password:<br>
+        <input type="password" class="input_field" id="password" value=""><br><br>
+        <input type="checkbox" id="checkbox" onclick="showPassword()"></input>
+        <label for="checkbox">Show Password</label><br>
+        <div>
+            <button onclick="login()">Login</button>
+        </div>
+        <p id="statusLine"></p><br>
+
+    </body>
+
+</html>
+
+<link rel="stylesheet" href="common.css">
+<script src="common.js"></script>
