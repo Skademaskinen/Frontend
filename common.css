@@ -1,0 +1,46 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding-left:10%;
+    padding-right:10%;
+}
+
+.mainmatter {
+    background-color: rgb(20, 20, 20);
+}
+
+
+a {
+    color: red;
+    text-decoration: none;
+}
+a:hover{
+    color:rgb(255, 150, 0);
+}
+a:active{
+    color: rgb(255, 255, 255);
+}
+
+.header_link {
+    color: green;
+    display: inline;
+    padding:unset;
+}
+.header_i{
+    color: white;
+    display: inline;
+    padding:unset;
+}
+.header_link:hover{
+    color:rgb(100,255,100);
+}
+.header_link:active {
+    color: rgb(200, 255, 200);
+}
+
+hr {
+    background-color: white;
+    color: white;
+}

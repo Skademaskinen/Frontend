@@ -1,79 +1,20 @@
 <!DOCTYPE html>
-<HTML>
-<div class="mainmatter">
-  <link rel="stylesheet" href="dark.min.css">
-  <script src="scripts/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
-  
-  <meta content="Mast3r_waf1z Official website" property="og:title" />
-  <meta content="A site created to show a lot of stuff about me" property="og:description" />
-  <meta content="https://about.skademaskinen.win" property="og:url" />
-  <meta content="https://cdn.discordapp.com/attachments/889964274229854248/1026586187441393825/IMG_20220716_114508.jpg" property="og:image" />
-  <meta content="#FFFFFF" data-react-helmet="true" name="theme-color" />
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="assets/favicon.ico">
-  
-  <HEAD>
-    <TITLE>Mast3r_waf1z - About me</TITLE>
-    <link rel="stylesheet" href="styles.css">
-  </HEAD>
-  
-  <header id="header"></header>
-  
-  <BODY>
-    
-    <h1>Mast3r_waf1z - About me</h1>
-    <br>
-    <div>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/1920px-Tux.svg.png" width=5%>
-      <img src="https://archlinux.org/static/logos/archlinux-logo-light-90dpi.d36c53534a2b.png" width=20%> 
-    </div>
-    <div>
-      <div class="textbox">
-        Hi, I go by the name Mast3r_waf1z or Skademanden by some. I am a master's student in Software Engineering at Aalborg University and I take an interest in pretty much anything related to IT and software.
-        <br>
-        I graduated from Aalborg University in june 2023 with a bachelor's degree in Computer Engineering.
-        <br>
-        Everything on this website is written by me in HTML, CSS and JavaScript, with no external tools other than embeds. I had no prior knowledge to any of those except a tutorial or two :)
-        <br>
-        Linux user and spreader of the good word of Linux Gaming.
-      </div>
-    </div>
-    <div>
-      <img src="assets/fspinner.gif" width=10% height=10%><br>
-      This site is not affiliated with F-klubben, i'm just a contributer. ref: <a href="https://fklub.dk">https://fklub.dk</a>
-      <div>
-        <IMG SRC="assets/skull.gif">
-      </div>
-      <div>
-        <button type="button" onclick=show_box()>CLICK ME!!!</button>
-        <button type="button" onclick="window.location.href='https://www.youtube.com/watch?v=iik25wqIuFo'">NO, CLICK ME!!!!</button>
-        <button type="button" style="background-color: red;" onclick="new Audio('assets/gnome.mp3').play()">Do Not Click!</button>
-      </div>
-      <div>
-        <script type="text/javascript" src="https://www.counters-free.net/count/bg3w"></script><br>
-      </div>
-    </div>
-    <div>
-      <div style="display:flex; justify-content: center;">
-        <img src="assets/fire.gif" width="150px">
-        <p style="align-self:flex-end; margin-left:1%;margin-right: 1%;">Bogosort - sorts an n sized set of numbers in an average case of O(n!), worst case of O(∞) and best case of O(n)</p>
-        <img src="assets/fire.gif" width="150px">
-      </div>
-        <pre><code class="language-python" style="margin: 1%;border-radius: 10px;text-align: left;">from random import shuffle
-l = [4,3,2,1]
-def bogo(l:list):
-  while not all([1 if l[i] < l[i+1] else 0 for i in range(len(l) - 1)]): 
-    shuffle(l)
-  return l
-bogo(l)
-      </code></pre><br>
-    </div>
-  </BODY>
-  <footer id="footer"></footer>
+<html>
+    <body id="body" class="mainmatter">
+        <h1>
+            Welcome to Skademaskinen!
+        </h1>
+        <div style="text-align: left; padding-left:20%; padding-right:20%">
+            Hi!<br>
+            I am Mast3r_waf1z, or Skademanden. I am a bachelor graduate / master student at Aalborg University. I graduated as a bachelor in Computer Engineering in 2023, and i am currently studying a master's degree in Software Engineering.<br><br>
+            The purpose of this website is to show an insight in my competenses in a way that exceeds the capability of a CV or a resume. If my CV is more of interest to you, feel free to check it out at: XX, or compile it yourself.<br><br>
+            I would describe myself as somewhat of a computer enthusiast, such that anything related to computers interest me to some capacity, (though some topic do bore me). As such i am a Linux user i also enjoy dabbling in exciting distributions like Arch Linux, Gentoo Linux, Linux From Scratch and its derivatives, and NixOS a lot.<br><br>
+            This site is currently in its second iteration, if you're curious to the history, the last version of the original site is at this commit: XX, i descided in 2024 to rewrite the whole thing, my reasoning was that i wanted it to be more dynamic and to feel more alive. Both sites have something in common though: Its inspired by old static web 1.0 websites!<br><br>
+            On this site you will also find dedicated threads to each of my interests, as i also enjoy Warhammer 40000, Gaming (active member of the Linux gaming community), Anime and manga, and of course music - I'm a huge metal fan!
 
-  <script src="scripts/index.js"></script>
-  <script src="scripts/layout.js"></script>
+        </div>
+    </body>
+    </html>
 
-  </div>
-</HTML>
+<link rel="stylesheet" href="common.css">
+<script src="common.js"></script>
