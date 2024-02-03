@@ -49,6 +49,7 @@ function generateGuestbook(data){
             switch(response.status){
                 case 200:
                     response.text().then(text => {
+                        console.log("id: " + id)
                         var inner = document.getElementById("guestbook-entry-"+id)
                         var messageData = JSON.parse(text)
                         console.log("name: "+messageData["name"])
