@@ -42,14 +42,13 @@ function generateGuestbook(data){
         container.appendChild(document.createElement("br"))
         containers[id] = inner
         console.log("Fetching for id: " + id)
-        
+
         fetch("https://skademaskinen.win:11034/admin/guestbook?id="+id, {
             method: "get"
         }).then(response => {
             switch(response.status){
                 case 200:
                     response.text().then(text => {
-                        var inner = containers[id]
                         var messageData = JSON.parse(text)
                         console.log("name: "+messageData["name"])
                         console.log("time: "+messageData["time"])
@@ -57,18 +56,18 @@ function generateGuestbook(data){
                         var name = document.createElement("p")
                         name.className = "guestbook-entry-name"
                         name.innerHTML = messageData["name"]
-                        inner.appendChild(name)
-                        inner.appendChild(document.createElement("br"))
+                        containers[id].appendChild(name)
+                        containers[id].appendChild(document.createElement("br"))
                         var time = document.createElement("p")
                         time.className = "guestbook-entry-time"
                         time.innerHTML = (new Date(messageData["time"])).toUTCString()
-                        inner.appendChild(time)
-                        inner.appendChild(document.createElement("hr"))
-                        inner.appendChild(document.createElement("br"))
+                        containers[id].appendChild(time)
+                        containers[id].appendChild(document.createElement("hr"))
+                        containers[id].appendChild(document.createElement("br"))
                         var message = document.createElement("p")
                         message.innerHTML = messageData["message"]
-                        inner.appendChild(message)
-                        inner.appendChild(document.createElement("br"))
+                        containers[id].appendChild(message)
+                        containers[id].appendChild(document.createElement("br"))
                     })
                 default:
                     console.log("Error!")
