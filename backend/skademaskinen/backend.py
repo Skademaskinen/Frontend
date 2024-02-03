@@ -60,6 +60,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.end_headers()
 
     def do_GET(self):
+        args = None
         if "?" in self.path:
             path = self.path.split("?")[0]
             args = {kv.split("=")[0]:kv.split("=")[1] for kv in self.path.split("?")[1].split("&")}
