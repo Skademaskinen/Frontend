@@ -50,7 +50,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
         self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_response(200)
+        self.send_response(204)
         self.end_headers()
 
 
