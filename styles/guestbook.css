@@ -27,3 +27,16 @@
 .guestbook-name:focus {
     background-color: #262626;
 }
+
+.guestbook-entry-name {
+    display: inline;
+}
+
+.guestbook-entry-time {
+    display: inline;
+    color: #ff5500;
+}
+
+.guestbook-entry {
+    background-color: #222222;
+}

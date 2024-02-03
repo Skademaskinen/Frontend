@@ -36,6 +36,7 @@ function generateGuestbook(data){
     data.forEach(id => {
         console.log("Fetching for id: " + id)
         innerContainer = document.createElement("div")
+        innerContainer.className = "guestbook-entry"
         container.appendChild(innerContainer)
         fetch("https://skademaskinen.win:11034/admin/guestbook?id="+id, {
             method: "get"
@@ -48,9 +49,11 @@ function generateGuestbook(data){
                         console.log("time: "+messageData["time"])
                         console.log("message: "+messageData["message"])
                         var name = document.createElement("p")
+                        name.className = "guestbook-entry-name"
                         name.innerHTML = messageData["name"]
                         innerContainer.appendChild(name)
                         var time = document.createElement("p")
+                        time.className = "guestbook-entry-time"
                         time.innerHTML = new Date(messageData["time"])
                         innerContainer.appendChild(time)
                         innerContainer.appendChild(document.createElement("br"))
