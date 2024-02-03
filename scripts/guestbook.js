@@ -49,14 +49,19 @@ fetch("https://skademaskinen.win:11034/admin/guestbook", {
 })
 
 if(data != []){
+    console.log("generating guestbook")
     var container = document.getElementById("guestbook-history")
     data.forEach(id => {
+        console.log("Fetching for id: " + id)
         fetch("https://skademaskinen.win:11034/admin/guestbook?id="+id, {
             method: "get"
         }).then(response => {
             switch(response.status){
                 case 200:
                     response.text().then(text => {
+                        console.log("name: "+messageData["name"])
+                        console.log("time: "+messageData["time"])
+                        console.log("message: "+messageData["message"])
                         var messageData = JSON.parse(text)
                         var name = document.createElement("p")
                         name.innerHTML = messageData["name"]
