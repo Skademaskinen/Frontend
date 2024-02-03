@@ -21,6 +21,7 @@ class Database:
     def __init__(self) -> None:
         doSQL("create table if not exists users (username varchar primary key, password varbinary not null, salt varbinary not null)")
         doSQL("create table if not exists tokencache (token varchar primary key, username varchar, foreign key(username) references users (username))")
+        doSQL("create table if not exists guestbook (id integer primary key, name varchar not null, time integer not null, message varchar not null)")
 
     def addUser(self, username:str, password:str) -> bool:
         salt = bcrypt.gensalt()
@@ -44,6 +45,24 @@ class Database:
             return token
         else:
             return loads(doSQL(f"select token from tokencache where username = '{username}'", ["-json"]))[0]["token"]
+        
+    def getTimestamps(name:str) -> list[int]:
+        return [row["time"] for row in loads(doSQL(f"select time from guestbook where name = '{name}'", ["-json"]))]
+
+    def appendGuestbook(self, name:str, time:int, message:str) -> bool:
+        try:
+            doSQL(f"insert into guestbook (name, time, message) values ('{name}', {time}, '{message}')")
+            return True
+        except Exception as e:
+            print(e)
+            return False
+        
+    def getGuestbookData(id:int) -> (str, int, str):
+        data = loads(doSQL(f"select name, time, message from guestbook where id = {id}", ["-json"]))[0]
+        return data["name"], data["time"], data["message"]
+    
+    def getGuestbookIds() -> list[int]:
+        return [row["id"] for row in loads(doSQL(f"select id from guestbook", ["-json"]))]
 
 
 
