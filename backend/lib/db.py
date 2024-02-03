@@ -63,8 +63,12 @@ class Database:
             return False
         
     def getGuestbookData(self, id:int) -> (str, int, str):
-        data = loads(doSQL(f"select name, time, message from guestbook where id = {id}", ["-json"]))[0]
-        return data["name"], data["time"], data["message"]
+        data = doSQL(f"select name, time, message from guestbook where id = {id}", ["-json"])
+        if not data == "":
+            json = loads(data)[0]
+        else:
+            json = {"name":"Error", "time":0, "message":"Error!"}
+        return json["name"], json["time"], json["message"]
     
     def getGuestbookIds(self) -> list[int]:
         data = doSQL(f"select id from guestbook", ["-json"])
