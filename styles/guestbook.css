@@ -34,6 +34,7 @@
 
 .guestbook-entry-time {
     display: inline;
+    text-align:right;
     color: #ff5500;
 }
 

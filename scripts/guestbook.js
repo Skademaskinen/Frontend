@@ -24,6 +24,7 @@ function post(){
                 window.location.reload()
                 break;
             default:
+                alert("Failed to post message! \nMaybe you just posted? (7 day timer)")
                 console.log("Failed to post message!")
                 break;
         }
@@ -54,7 +55,7 @@ function generateGuestbook(data){
                         innerContainer.appendChild(name)
                         var time = document.createElement("p")
                         time.className = "guestbook-entry-time"
-                        time.innerHTML = new Date(messageData["time"])
+                        time.innerHTML = (new Date(messageData["time"])).toUTCString()
                         innerContainer.appendChild(time)
                         innerContainer.appendChild(document.createElement("br"))
                         var message = document.createElement("p")
