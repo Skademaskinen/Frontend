@@ -53,6 +53,7 @@ function generateGuestbook(data){
                         name.className = "guestbook-entry-name"
                         name.innerHTML = messageData["name"]
                         innerContainer.appendChild(name)
+                        innerContainer.appendChild(document.createElement("br"))
                         var time = document.createElement("p")
                         time.className = "guestbook-entry-time"
                         time.innerHTML = (new Date(messageData["time"])).toUTCString()
