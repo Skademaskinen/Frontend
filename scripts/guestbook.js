@@ -30,25 +30,7 @@ function post(){
     })
 }
 
-var data = null
-
-fetch("https://skademaskinen.win:11034/admin/guestbook", {
-    method: "get"
-}).then(response => {
-    switch(response.status){
-        case 200:
-            response.text().then(text => {
-                data = JSON.parse(text)// should be like [1,2,3,4,5,6,...]
-                console.log(data)
-            })
-            break;
-        default:
-            console.log("Error! WTF just happened???")
-            return;
-    }
-})
-
-if(data != null){
+function generateGuestbook(data){
     console.log("generating guestbook")
     var container = document.getElementById("guestbook-history")
     data.forEach(id => {
@@ -81,3 +63,22 @@ if(data != null){
         })
     })
 }
+
+fetch("https://skademaskinen.win:11034/admin/guestbook", {
+    method: "get"
+}).then(response => {
+    switch(response.status){
+        case 200:
+            response.text().then(text => {
+                data = JSON.parse(text)// should be like [1,2,3,4,5,6,...]
+                generateGuestbook(data)
+                console.log(data)
+            })
+            break;
+        default:
+            console.log("Error! WTF just happened???")
+            return;
+    }
+})
+
+console.log("finished generating guestbook")
