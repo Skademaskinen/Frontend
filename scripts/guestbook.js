@@ -34,15 +34,15 @@ function post(){
 function generateGuestbook(data){
     console.log("generating guestbook")
     var container = document.getElementById("guestbook-history")
-    for(var id = 0; id < data.length; id++){
+    
+    data.forEach(id => {
         var inner = document.createElement("div")
         inner.className = "guestbook-entry"
         container.appendChild(inner)
         container.appendChild(document.createElement("br"))
         inner.id = "guestbook-entry-"+id
-    }
-    for(var id = 0; id < data.length; id++){
         console.log("Fetching for id: " + id)
+
         fetch("https://skademaskinen.win:11034/admin/guestbook?id="+id, {
             method: "get"
         }).then(response => {
@@ -76,7 +76,7 @@ function generateGuestbook(data){
             }
         })
 
-    }
+    })
 }
 
 fetch("https://skademaskinen.win:11034/admin/guestbook", {
