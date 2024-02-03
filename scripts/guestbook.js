@@ -39,6 +39,7 @@ function generateGuestbook(data){
         var inner = document.createElement("div")
         inner.className = "guestbook-entry"
         container.appendChild(inner)
+        container.appendChild(document.createElement("br"))
         containers.push(inner)
     }
     data.forEach(id => {
