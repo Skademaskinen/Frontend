@@ -31,7 +31,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     token = database.getToken(username)
                     self.wfile.write(token.encode())
                 else:
-                    self.send_response(403)
+                    self.send_response(400)
                     self.end_headers()
                     self.wfile.write(b"Error! wrong credentials")
         
@@ -44,7 +44,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     token = database.getToken(username)
                     self.wfile.write(token.encode())
                 else:
-                    self.send_response(403)
+                    self.send_response(400)
                     self.end_headers()
                     self.wfile.write(b"Error! user already exists")
 
