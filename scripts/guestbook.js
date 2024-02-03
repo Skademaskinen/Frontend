@@ -34,14 +34,21 @@ function post(){
 function generateGuestbook(data){
     console.log("generating guestbook")
     var container = document.getElementById("guestbook-history")
+    var containers = []
+    for(var i = 0; i < data.length; i++){
+        var inner = document.createElement("div")
+        inner.className = "guestbook-entry"
+        container.appendChild(inner)
+        containers.push(inner)
+    }
     data.forEach(id => {
         console.log("Fetching for id: " + id)
         innerContainer = document.createElement("div")
         innerContainer.className = "guestbook-entry"
-        container.appendChild(innerContainer)
         fetch("https://skademaskinen.win:11034/admin/guestbook?id="+id, {
             method: "get"
         }).then(response => {
+            inner = containers[id]
             switch(response.status){
                 case 200:
                     response.text().then(text => {
@@ -52,18 +59,18 @@ function generateGuestbook(data){
                         var name = document.createElement("p")
                         name.className = "guestbook-entry-name"
                         name.innerHTML = messageData["name"]
-                        innerContainer.appendChild(name)
-                        innerContainer.appendChild(document.createElement("br"))
+                        inner.appendChild(name)
+                        inner.appendChild(document.createElement("br"))
                         var time = document.createElement("p")
                         time.className = "guestbook-entry-time"
                         time.innerHTML = (new Date(messageData["time"])).toUTCString()
-                        innerContainer.appendChild(time)
-                        innerContainer.appendChild(document.createElement("hr"))
-                        innerContainer.appendChild(document.createElement("br"))
+                        inner.appendChild(time)
+                        inner.appendChild(document.createElement("hr"))
+                        inner.appendChild(document.createElement("br"))
                         var message = document.createElement("p")
                         message.innerHTML = messageData["message"]
-                        innerContainer.appendChild(message)
-                        innerContainer.appendChild(document.createElement("br"))
+                        inner.appendChild(message)
+                        inner.appendChild(document.createElement("br"))
                     })
                 default:
                     console.log("Error!")
