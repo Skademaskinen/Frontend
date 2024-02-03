@@ -49,10 +49,10 @@ function generateGuestbook(data){
         fetch("https://skademaskinen.win:11034/admin/guestbook?id="+id, {
             method: "get"
         }).then(response => {
-            inner = containers[id]
             switch(response.status){
                 case 200:
                     response.text().then(text => {
+                        inner = containers[id]
                         var messageData = JSON.parse(text)
                         console.log("name: "+messageData["name"])
                         console.log("time: "+messageData["time"])
