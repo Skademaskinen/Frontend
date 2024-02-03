@@ -18,6 +18,7 @@ database = Database()
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         global database
+        self.send_header("Access-Control-Allow-Origin", "*")
         size = int(self.headers.get('content-length', 0))
         data = loads(self.rfile.read(size).decode())
         match self.path:
