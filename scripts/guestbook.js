@@ -35,6 +35,8 @@ function generateGuestbook(data){
     var container = document.getElementById("guestbook-history")
     data.forEach(id => {
         console.log("Fetching for id: " + id)
+        innerContainer = document.createElement("div")
+        container.appendChild(innerContainer)
         fetch("https://skademaskinen.win:11034/admin/guestbook?id="+id, {
             method: "get"
         }).then(response => {
@@ -47,15 +49,15 @@ function generateGuestbook(data){
                         console.log("message: "+messageData["message"])
                         var name = document.createElement("p")
                         name.innerHTML = messageData["name"]
-                        container.appendChild(name)
+                        innerContainer.appendChild(name)
                         var time = document.createElement("p")
                         time.innerHTML = new Date(messageData["time"])
-                        container.appendChild(time)
-                        container.appendChild(document.createElement("br"))
+                        innerContainer.appendChild(time)
+                        innerContainer.appendChild(document.createElement("br"))
                         var message = document.createElement("p")
                         message.innerHTML = messageData["message"]
-                        container.appendChild(message)
-                        container.appendChild(document.createElement("br"))
+                        innerContainer.appendChild(message)
+                        innerContainer.appendChild(document.createElement("br"))
                     })
                 default:
                     console.log("Error!")
