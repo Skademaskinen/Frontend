@@ -9,8 +9,8 @@ from json import loads
 from lib.db import Database
 
 addr = (
-    sys.argv[sys.argv.index("--hostname")-1] if "--hostname" in sys.argv else sys.argv[sys.argv.index("-H")-1] if "-H" in sys.argv else "",
-    int(sys.argv[sys.argv.index("--port")-1] if "--port" in sys.argv else sys.argv[sys.argv.index("-p")-1] if "-p" in sys.argv else "8080")
+    sys.argv[sys.argv.index("--hostname")+1] if "--hostname" in sys.argv else sys.argv[sys.argv.index("-H")+1] if "-H" in sys.argv else "",
+    int(sys.argv[sys.argv.index("--port")+1] if "--port" in sys.argv else sys.argv[sys.argv.index("-p")+1] if "-p" in sys.argv else "8080")
 )
 
 database = Database()

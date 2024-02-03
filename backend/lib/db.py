@@ -1,15 +1,18 @@
 from sys import argv
+import os
 from subprocess import check_output
 import bcrypt
 from json import loads
 from secrets import token_urlsafe
 
-db = argv[argv.index("--db")-1] if "--db" in argv else "/tmp/skademaskinen.db3"
-with open(argv[argv.index("--keyfile")-1] if "--keyfile" in argv else argv[argv.index("-kf")-1] if "-kf" in argv else "/tmp/skademaskinen-keyfile", "r") as file:
+db = argv[argv.index("--db")+1] if "--db" in argv else "/tmp/skademaskinen.db3"
+with open(argv[argv.index("--keyfile")+1] if "--keyfile" in argv else argv[argv.index("-kf")+1] if "-kf" in argv else "/tmp/skademaskinen-keyfile", "r") as file:
     MASTERKEY = file.read()
 
+sqlite3 = os.getenv("SQLITE3_PATH") if not os.getenv("SQLITE3_PATH") == None else "sqlite3"
+
 doSQL = lambda sql, args=[]: check_output([
-    "sqlite3",
+    sqlite3,
     db,
     sql
 ] + args).decode()
