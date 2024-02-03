@@ -9,7 +9,13 @@
             I am Mast3r_waf1z, or Skademanden. I am a bachelor graduate / master student at Aalborg University. I graduated as a bachelor in Computer Engineering in 2023, and i am currently studying a master's degree in Software Engineering.<br><br>
             The purpose of this website is to show an insight in my competenses in a way that exceeds the capability of a CV or a resume. If my CV is more of interest to you, feel free to check it out at: XX, or compile it yourself.<br><br>
             I would describe myself as somewhat of a computer enthusiast, such that anything related to computers interest me to some capacity, (though some topics do bore me). As such i am a Linux user i also enjoy dabbling in exciting distributions like Arch Linux, Gentoo Linux, Linux From Scratch and its derivatives, and NixOS a lot.<br><br>
-            This site is currently in its second iteration, if you're curious to the history, the last version of the original site is at <a href="https://github.com/Mast3rwaf1z/Mast3rwaf1z.github.io/tree/cc2086e4f01dc23d6918a3e13dade6d437e7079d">this commit</a>, i descided in 2024 to rewrite the whole thing, my reasoning was that i wanted it to be more dynamic and to feel more alive. Both sites have something in common though: Its inspired by old static web 1.0 websites!<br><br>
+            This site is currently in its second iteration, if you're curious to the history, the last version of the original site is at <a href="https://github.com/Mast3rwaf1z/Mast3rwaf1z.github.io/tree/cc2086e4f01dc23d6918a3e13dade6d437e7079d">this commit</a>, If you want to run it yourself, run these commands in a Linux terminal:<br> 
+                <code>git clone https://github.com/Mast3rwaf1z/Mast3rwaf1z.github.io.git /tmp/website</code><br> 
+                <code>cd /tmp/website</code><br>
+                <code>git checkout cc2086e</code><br>
+                <code>firefox file:///tmp/website/index.html</code><br>
+            I descided in 2024 to rewrite the whole thing, my reasoning was that i wanted it to be more dynamic and to feel more alive. Both sites have something in common though: Its inspired by old static web 1.0 websites!<br><br>
+            
             On this site you will also find dedicated threads to each of my interests, as i also enjoy Warhammer 40000, Gaming (active member of the Linux gaming community), Anime and manga, and of course music - I'm a huge metal fan!<br><br>
 
         </div>
@@ -19,9 +25,12 @@
             <img style="width: 10%; text-align: center; padding-left: 15%;" src="assets/fire.gif">
             
         </div>
+        <div id="visitorCounter">
+        </div>
+
         <br><hr>
         <h2 style="font-family: monospace;">man about.skademaskinen.win</h2>
-        <pre style="text-align: left; padding-left:15%">
+        <pre style="text-align: left; margin-left:17%; margin-right:17%; background-color: #171717; border-radius:10px;"><br>
             How to use this site:
             The top bar should represent terminal commands, so here's an explanation of each command!
             <p style="all: unset; color:lightgreen;">home</p>
@@ -30,9 +39,10 @@
             <p style="all: unset; padding-left:2%;">Opens login page, used to send WOL requests and see server status of my servers</p>
             <p style="all: unset; color:lightgreen;">contact</p>
             <p style="all: unset; padding-left:2%;">My contact information</p>
+            <p style="all: unset; color:lightgreen;">guestbook</p> &lt;name&gt; &lt;message&gt;
+            <p style="all: unset; padding-left:2%;">Leave me a message :)</p>
             <p style="all: unset; color:lightgreen;">interests</p> &lt;index&gt;
             <p style="all: unset; padding-left:2%;">Aforementioned threads of things that interest me, should be dynamically generated from a database</p>
-            
 
         </pre>
 
@@ -44,9 +54,10 @@
             * My preferred programming language is Python, i loved learning Haskell though!<br>
             * My favorite Linux ditribution is Arch Linux, it is a very powerful distribution with excellent documentation.<br>
             * My favorite band is Avatar! I love their energy and I never really tire of listening to them. <br>
-        </div>
+        </div><br><hr>
     </body>
     </html>
 
 <link rel="stylesheet" href="styles/common.css">
 <script src="scripts/common.js"></script>
+<script src="scripts/index.js"></script>

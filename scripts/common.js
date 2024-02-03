@@ -14,6 +14,7 @@ var links = [
     ["login", uri + "/login.html"],
     ["source", "https://github.com/Mast3rwaf1z/Mast3rwaf1z.github.io"],
     ["contact", uri + "/contact.html"],
+    ["guestbook", uri + "/guestbook.html"]
 ]
 var sections = [
     ["anime", uri + "/sections/anime.html"], 
