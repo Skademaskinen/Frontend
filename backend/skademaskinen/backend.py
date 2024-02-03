@@ -74,6 +74,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.send_response(200)
                     self.end_headers()
                     self.wfile.write(dumps({
+                        "id":id,
                         "name":name,
                         "time":time,
                         "message":message
