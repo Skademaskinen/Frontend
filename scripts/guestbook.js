@@ -30,7 +30,7 @@ function post(){
     })
 }
 
-var data = []
+var data = null
 
 fetch("https://skademaskinen.win:11034/admin/guestbook", {
     method: "get"
@@ -48,7 +48,7 @@ fetch("https://skademaskinen.win:11034/admin/guestbook", {
     }
 })
 
-if(data != []){
+if(data != null){
     console.log("generating guestbook")
     var container = document.getElementById("guestbook-history")
     data.forEach(id => {
