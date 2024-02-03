@@ -31,6 +31,8 @@ class Database:
         return True
 
     def verifyUser(self, username:str, password:str) -> bool:
+        if doSQL(f"select * from users where username = '{username}'") == "":
+            return False
         data:dict[str, str] = loads(doSQL(f"select * from users where username = '{username}'", ["-json"]))[0]
         hash = bcrypt.hashpw(password.encode() + data["salt"].encode() + MASTERKEY.encode(), data["salt"].encode())
         return hash == data["password"].encode()
@@ -39,6 +41,7 @@ class Database:
         if doSQL(f"select * from tokencache where username = '{username}'") == "":
             token = token_urlsafe(32)
             doSQL(f"insert into tokencache values ('{token}', '{username}')")
+            return token
         else:
             return loads(doSQL(f"select token from tokencache where username = '{username}'", ["-json"]))[0]["token"]
 
