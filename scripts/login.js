@@ -24,7 +24,8 @@ function login(){
                 console.log("Successfully Logged in!")
                 response.text().then(text => {
                     console.log(text)
-                    window.location.href = uri + "?" + text
+                    document.cookie = "accessToken=" + text
+                    window.location.href = uri + "/backend/index.html"
                 })
                 break
             default:
@@ -54,7 +55,8 @@ function register(){
                 console.log("Successfully registered user!")
                 response.text().then(text => {
                     console.log(text)
-                    window.location.href = uri + "?" + text
+                    document.cookie = "accessToken=" + text
+                    window.location.href = uri + "/backend/index.html"
                 })
                 break
             default:
