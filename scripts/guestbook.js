@@ -35,7 +35,7 @@ function generateGuestbook(data){
     console.log("generating guestbook")
     var container = document.getElementById("guestbook-history")
 
-    data.reverse.forEach(id => {
+    data.reverse().forEach(id => {
         var inner = document.createElement("div")
         inner.className = "guestbook-entry"
         container.appendChild(inner)
