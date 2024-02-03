@@ -18,7 +18,6 @@ database = Database()
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         global database
-        self.send_header("Access-Control-Allow-Origin", "*")
         size = int(self.headers.get('content-length', 0))
         data = loads(self.rfile.read(size).decode())
         match self.path:
@@ -48,6 +47,11 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.send_response(403)
                     self.end_headers()
                     self.wfile.write(b"Error! user already exists")
+
+    def do_OPTIONS(self):
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_response(200)
+        self.end_headers()
 
 
 
