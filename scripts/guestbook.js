@@ -41,10 +41,10 @@ function generateGuestbook(data){
             switch(response.status){
                 case 200:
                     response.text().then(text => {
+                        var messageData = JSON.parse(text)
                         console.log("name: "+messageData["name"])
                         console.log("time: "+messageData["time"])
                         console.log("message: "+messageData["message"])
-                        var messageData = JSON.parse(text)
                         var name = document.createElement("p")
                         name.innerHTML = messageData["name"]
                         container.appendChild(name)
