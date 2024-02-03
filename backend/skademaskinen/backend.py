@@ -4,7 +4,7 @@ import os
 sys.path.append(f'{os.path.dirname(__file__)}/..')
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from json import loads
+from json import loads, dumps
 
 from lib.db import Database
 
@@ -47,6 +47,40 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.send_response(400)
                     self.end_headers()
                     self.wfile.write(b"Error! user already exists")
+            case "/admin/guestbook":
+                message = data["message"]
+                name = data["name"]
+                time = data["time"]
+                if all([time > (epoch + 6e10) for epoch in database.getTimestamps(name)]):
+                    database.appendGuestbook(name, time, message)
+                    self.send_response(200)
+                    self.end_headers()
+                else:
+                    self.send_response(400)
+                    self.end_headers()
+
+    def do_GET(self):
+        if "?" in self.path:
+            path = self.path.split("?")[0]
+            args = {kv.split("=")[0]:kv.split("=")[1] for kv in self.path.split("?")[1].split("&")}
+        else:
+            path = self.path
+        match path:
+            case "/admin/guestbook":
+                if args is not None:
+                    id = args["id"]
+                    name, time, message = database.getGuestbookData(id)
+                    self.send_response(200)
+                    self.end_headers()
+                    self.wfile.write(dumps({
+                        "name":name,
+                        "time":time,
+                        "message":message
+                    }).encode())
+                else:
+                    self.send_response(200)
+                    self.end_headers()
+                    self.wfile.write(dumps(database.getGuestbookIds()).encode())
 
     def do_OPTIONS(self):
         #self.send_header("Access-Control-Allow-Origin", "*")

@@ -6,9 +6,21 @@
         <div style="text-align: left; padding-left:20%; padding-right:20%">
             Some might remember my original guestbook, it was some external html that i imported into my site, it was always super buggy so with this rewrite i descided that my skills are sufficient to implement it myself!
         </div><br>
+        <h3>Message</h3>
+        <textarea type="text" id="guestbook-text" class="guestbook-text"></textarea><br>
+        <h3>Name</h3>
+        <input type="text" id="guestbook-name" class="guestbook-name">
+        <button id="guestbook-post" onclick="post()">Post</button><br><br>
+
+        <hr>
+        <div class="guestbook-history" id="guestbook-history">
+            <h2>History</h2>
+        </div>
     </body><hr>
 
 </html>
 
 <link rel="stylesheet" href="styles/common.css">
+<link rel="stylesheet" href="styles/guestbook.css">
 <script src="scripts/common.js"></script>
+<script src="scripts/guestbook.js"></script>
