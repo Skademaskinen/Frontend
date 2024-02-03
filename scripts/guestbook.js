@@ -52,7 +52,7 @@ function generateGuestbook(data){
             switch(response.status){
                 case 200:
                     response.text().then(text => {
-                        inner = containers[id]
+                        var inner = containers[id]
                         var messageData = JSON.parse(text)
                         console.log("name: "+messageData["name"])
                         console.log("time: "+messageData["time"])
