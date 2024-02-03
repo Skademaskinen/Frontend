@@ -46,7 +46,7 @@ class Database:
         else:
             return loads(doSQL(f"select token from tokencache where username = '{username}'", ["-json"]))[0]["token"]
         
-    def getTimestamps(name:str) -> list[int]:
+    def getTimestamps(self, name:str) -> list[int]:
         return [row["time"] for row in loads(doSQL(f"select time from guestbook where name = '{name}'", ["-json"]))]
 
     def appendGuestbook(self, name:str, time:int, message:str) -> bool:
@@ -57,11 +57,11 @@ class Database:
             print(e)
             return False
         
-    def getGuestbookData(id:int) -> (str, int, str):
+    def getGuestbookData(self, id:int) -> (str, int, str):
         data = loads(doSQL(f"select name, time, message from guestbook where id = {id}", ["-json"]))[0]
         return data["name"], data["time"], data["message"]
     
-    def getGuestbookIds() -> list[int]:
+    def getGuestbookIds(self) -> list[int]:
         return [row["id"] for row in loads(doSQL(f"select id from guestbook", ["-json"]))]
 
 
