@@ -25,6 +25,7 @@ function login(){
                 response.text().then(text => {
                     console.log(text)
                     document.cookie = "accessToken=" + text
+                    document.cookie = "username=" + document.getElementById("username").value
                     window.location.href = uri + "/backend/index.html"
                 })
                 break
