@@ -5,7 +5,7 @@ function doVisit(token){
         method:"post",
         body: JSON.stringify({
             token: token,
-            time: Date.now()
+            time: Date.now()/1000
         }),
         headers: {
             "Content-Type":"application/json"
