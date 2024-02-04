@@ -63,7 +63,7 @@ function generateGuestbook(data){
                         var time = document.createElement("p")
                         time.className = "guestbook-entry-time"
                         var date = new Date(messageData["time"])
-                        time.innerHTML = date.toDateString() + " - " + date.toLocaleTimeString().replaceAll(".", ":")
+                        time.innerHTML = date.toDateString() + " - " + date.toLocaleTimeString().substring(0,5).replaceAll(".", ":")
                         inner.appendChild(time)
                         inner.appendChild(document.createElement("hr"))
                         inner.appendChild(document.createElement("br"))
