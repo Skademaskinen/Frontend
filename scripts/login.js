@@ -70,3 +70,8 @@ function register(){
         }
     })
 }
+
+var token = getCookie("accessToken")
+if(token != ""){
+    window.location.href = "backend/index.html"
+}
