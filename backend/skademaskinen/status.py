@@ -16,7 +16,7 @@ def update(id:str) -> str:
 def lsblk(id:str) -> str:
     match id:
         case "skademaskinen":
-            return check_output(["lsblk", "-o", "name,mountpoint,fstype,fsuse%"]).decode()
+            return check_output([LSBLK_PATH, "-o", "name,mountpoint,fstype,fsuse%"]).decode()
 
 def errors(id:str) -> str:
     match id:
