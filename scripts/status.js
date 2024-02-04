@@ -17,8 +17,9 @@ if(token != ""){
                     var errors = document.getElementById("errors")
                     errors.innerHTML = data["errors"]
                 })
-                default:
-                    console.log("Error!")
+                break;
+            default:
+                console.log("Error!")
         }
     })
 }
