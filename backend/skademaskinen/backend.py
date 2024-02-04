@@ -111,6 +111,12 @@ class RequestHandler(BaseHTTPRequestHandler):
                         return
                     self.send_response(200)
                     self.end_headers()
+                    print(dumps({
+                        "systemctl":systemctl(id),
+                        "update":update(id),
+                        "lsblk":lsblk(id),
+                        "errors":errors(id)
+                    }))
                     self.wfile.write(dumps({
                         "systemctl":systemctl(id),
                         "update":update(id),
