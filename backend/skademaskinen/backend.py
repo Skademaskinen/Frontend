@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import loads, dumps
 
 from lib.db import Database
-from backend.skademaskinen.status import systemctl, update, lsblk, errors
+from skademaskinen.status import systemctl, update, lsblk, errors
 
 addr = (
     sys.argv[sys.argv.index("--hostname")+1] if "--hostname" in sys.argv else sys.argv[sys.argv.index("-H")+1] if "-H" in sys.argv else "",
