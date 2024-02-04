@@ -4,6 +4,7 @@ from subprocess import check_output
 import bcrypt
 from json import loads
 from secrets import token_urlsafe
+import datetime
 
 db = argv[argv.index("--db")+1] if "--db" in argv else "/tmp/skademaskinen.db3"
 with open(argv[argv.index("--keyfile")+1] if "--keyfile" in argv else argv[argv.index("-kf")+1] if "-kf" in argv else "/tmp/skademaskinen-keyfile", "r") as file:
@@ -17,11 +18,31 @@ doSQL = lambda sql, args=[]: check_output([
     sql
 ] + args).decode()
 
+def isToday(now:int, before:int) -> bool:
+    datetimeNow = datetime.datetime.fromtimestamp(now)
+    datetimeBefore = datetime.datetime.fromtimestamp(before)
+    yeardiff = datetimeNow.year - datetimeBefore.year
+    monthdiff = datetimeNow.month - datetimeBefore.month
+    daydiff = datetimeNow.day - datetimeBefore.day
+    return yeardiff == 0 and monthdiff == 0 and daydiff == 0
+
+
+def isYesterday(now:int, before:int) -> bool:
+    datetimeNow = datetime.datetime.fromtimestamp(now)
+    datetimeBefore = datetime.datetime.fromtimestamp(before)
+    yeardiff = datetimeNow.year - datetimeBefore.year
+    monthdiff = datetimeNow.month - datetimeBefore.month
+    daydiff = datetimeNow.day - datetimeBefore.day
+    return yeardiff == 0 and daydiff == 1
+
+
+
 class Database:
     def __init__(self) -> None:
         doSQL("create table if not exists users (username varchar primary key, password varbinary not null, salt varbinary not null)")
         doSQL("create table if not exists tokencache (token varchar primary key, username varchar, foreign key(username) references users (username))")
         doSQL("create table if not exists guestbook (id integer primary key, name varchar not null, time integer not null, message varchar not null)")
+        doSQL("create table if not exists visits (token varchar primary key, timestamp integer not null)")
 
     def addUser(self, username:str, password:str) -> bool:
         salt = bcrypt.gensalt()
@@ -77,6 +98,25 @@ class Database:
         else:
             json = []
         return json
+    
+    def getVisitorToken(self) -> str:
+        return token_urlsafe(32)
+    
+    def registerVisit(self, token, timestamp) -> (int, int, int):
+        if doSQL(f"select * from visits where token = '{token}'") == "":
+            doSQL(f"insert into visits values('{token}', {timestamp})")
+        # get number of visits today
+        data = doSQL(f"select timestamp from visits", ["-json"])
+        if not data == "":
+            json = loads(data)
+        else:
+            json = []
+        today = len([row["timestamp"] for row in json if isToday(timestamp, row["timestamp"])])
+        # get number of visits yesterday
+        yesterday = len([row["timestamp"] for row in json if isYesterday(timestamp, row["timestamp"])])
+        # get total vists
+        total = len(json)
+        return today, yesterday, total
 
 
 
