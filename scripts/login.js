@@ -25,7 +25,7 @@ function login(){
                 response.text().then(text => {
                     console.log(text)
                     document.cookie = "accessToken=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString()
-                    document.cookie = "username=" + document.getElementById("username").value
+                    document.cookie = "username=" + document.getElementById("username").value + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString()
                     window.location.href = uri + "/backend/index.html"
                 })
                 break
