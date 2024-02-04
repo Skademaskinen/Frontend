@@ -7,6 +7,7 @@ if(token != ""){
         switch(response.status){
             case 200:
                 response.text().then(text => {
+                    console.log("got text")
                     var data = JSON.parse(text)
                     var systemctl = document.getElementById("systemctl")
                     systemctl.innerHTML = data["systemctl"]
