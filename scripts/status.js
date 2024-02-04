@@ -10,13 +10,13 @@ if(token != ""){
                     console.log("got text")
                     var data = JSON.parse(text)
                     var systemctl = document.getElementById("systemctl")
-                    systemctl.innerHTML = data["systemctl"].replace("\n", "<br>")
+                    systemctl.innerHTML = data["systemctl"].replaceAll("\n", "<br>")
                     var update = document.getElementById("update")
-                    update.innerHTML = data["update"].replace("\n", "<br>")
+                    update.innerHTML = data["update"].replaceAll("\n", "<br>")
                     var lsblk = document.getElementById("lsblk")
-                    lsblk.innerHTML = data["lsblk"].replace("\n", "<br>")
+                    lsblk.innerHTML = data["lsblk"].replaceAll("\n", "<br>")
                     var errors = document.getElementById("errors")
-                    errors.innerHTML = data["errors"].replace("\n", "<br>")
+                    errors.innerHTML = data["errors"].replaceAll("\n", "<br>")
                 })
                 break;
             default:
