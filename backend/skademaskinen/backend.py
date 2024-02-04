@@ -7,6 +7,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import loads, dumps
 
 from lib.db import Database
+from backend.skademaskinen.status import systemctl, update, lsblk, errors
 
 addr = (
     sys.argv[sys.argv.index("--hostname")+1] if "--hostname" in sys.argv else sys.argv[sys.argv.index("-H")+1] if "-H" in sys.argv else "",
@@ -100,6 +101,23 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_response(200)
                 self.end_headers()
                 self.wfile.write(token.encode())
+            case "/admin/status":
+                if args is not None:
+                    id = args["id"]
+                    token = args["token"]
+                    if not database.verifyToken(token):
+                        self.send_response(403)
+                        self.end_headers()
+                        return
+                    self.send_response(200)
+                    self.end_headers()
+                    self.wfile.write(dumps({
+                        "systemctl":systemctl(id),
+                        "update":update(id),
+                        "lsblk":lsblk(id),
+                        "errors":errors(id)
+                    }).encode())
+
 
     def do_OPTIONS(self):
         #self.send_header("Access-Control-Allow-Origin", "*")

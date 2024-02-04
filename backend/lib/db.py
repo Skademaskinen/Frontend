@@ -66,6 +66,9 @@ class Database:
             return token
         else:
             return loads(doSQL(f"select token from tokencache where username = '{username}'", ["-json"]))[0]["token"]
+    
+    def verifyToken(token:str) -> bool:
+        return not doSQL(f"select * from tokencache where token = '{token}'") == ""
         
     def getTimestamps(self, name:str) -> list[int]:
         data = doSQL(f"select time from guestbook where name = '{name}'", ["-json"])
