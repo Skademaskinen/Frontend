@@ -1,4 +1,7 @@
 from subprocess import check_output
+import os
+
+LSBLK_PATH = os.getenv("LSBLK_PATH") if not os.getenv("LSBLK_PATH") == None else "lsblk"
 
 def systemctl(id:str) -> str:
     match id:
