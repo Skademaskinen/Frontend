@@ -11,7 +11,7 @@ def systemctl(id:str) -> str:
 def update(id:str) -> str:
     match id.lower():
         case "skademaskinen":
-            return check_output(["journalctl", "-u", "nixos-update.service", "-n", "20"]).decode()
+            return check_output(["journalctl", "-u", "nixos-upgrade.service", "-n", "20"]).decode() + check_output(["journalctl" "-u", "nixos-upgrade.timer", "-n", "20"]).decode()
 
 def lsblk(id:str) -> str:
     match id.lower():
