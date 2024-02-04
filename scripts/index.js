@@ -19,8 +19,13 @@ function doVisit(token){
                     var total = data["total"]
                     var today = data["today"]
                     var yesterday = data["yesterday"]
+                    visitor_counter.appendChild(document.createTextNode("Visitor counter"))
+                    visitor_counter.appendChild(document.createElement("br"))
+                    visitor_counter.appendChild(document.createElement("hr"))
                     visitor_counter.appendChild(document.createTextNode("Today: "+today))
+                    visitor_counter.appendChild(document.createElement("br"))
                     visitor_counter.appendChild(document.createTextNode("Yesterday: "+yesterday))
+                    visitor_counter.appendChild(document.createElement("br"))
                     visitor_counter.appendChild(document.createTextNode("Total: "+total))
 
                 })
