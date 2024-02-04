@@ -24,7 +24,7 @@ function login(){
                 console.log("Successfully Logged in!")
                 response.text().then(text => {
                     console.log(text)
-                    document.cookie = "accessToken=" + text
+                    document.cookie = "accessToken=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString()
                     document.cookie = "username=" + document.getElementById("username").value
                     window.location.href = uri + "/backend/index.html"
                 })
@@ -56,7 +56,7 @@ function register(){
                 console.log("Successfully registered user!")
                 response.text().then(text => {
                     console.log(text)
-                    document.cookie = "accessToken=" + text
+                    document.cookie = "accessToken=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString()
                     window.location.href = uri + "/backend/index.html"
                 })
                 break

@@ -25,7 +25,7 @@ def errors(id:str) -> str:
 
 
 if __name__ == "__main__":
-    systemctl("skademaskinen")
-    update("skademaskinen")
-    lsblk("skademaskinen")
-    errors("skademaskinen")
+    print(systemctl("skademaskinen"))
+    print(update("skademaskinen"))
+    print(lsblk("skademaskinen"))
+    print(errors("skademaskinen"))

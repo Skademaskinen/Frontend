@@ -43,7 +43,7 @@ if(getCookie("session") == ""){
         switch(response.status){
             case 200:
                 response.text().then(text => {
-                    document.cookie = "session=" + text
+                    document.cookie = "session=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString()
                     doVisit(text)
                 })
                 break;

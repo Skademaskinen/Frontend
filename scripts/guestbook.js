@@ -1,6 +1,11 @@
 console.log("Initialized guestbook")
 
+
 function post(){
+    if(getCookie("hasposted") == "yes"){
+        alert("Failed to post message! \nMaybe you just posted? (7 day timer)")
+        return
+    }
     var message = document.getElementById("guestbook-text").value
     var name = document.getElementById("guestbook-name").value
     var time = Date.now()
@@ -21,6 +26,7 @@ function post(){
         switch(response.status){
             case 200:
                 console.log("Successfully posted message!")
+                document.cookie = "hasposted=yes"
                 window.location.reload()
                 break;
             default:
