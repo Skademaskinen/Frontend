@@ -157,7 +157,10 @@ button:active{
 .scrolldiv {
     overflow:scroll;
     height:400px;
+    width:100%;
     background-color: #222222;
     margin: 1%;
     text-align: left;
+    font-family: monospace;
+    white-space: nowrap;
 }
