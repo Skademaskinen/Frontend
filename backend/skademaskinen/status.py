@@ -21,7 +21,7 @@ def lsblk(id:str) -> str:
 def errors(id:str) -> str:
     match id.lower():
         case "skademaskinen":
-            return [line for line in check_output(["journalctl", "-n", "1000"]).decode() if "error" in line]
+            return "\n".join([line for line in check_output(["journalctl", "-n", "1000"]).decode() if "error" in line])
 
 
 if __name__ == "__main__":
