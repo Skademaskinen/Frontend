@@ -58,6 +58,18 @@ class RequestHandler(BaseHTTPRequestHandler):
                 else:
                     self.send_response(400)
                     self.end_headers()
+            case "/admin/visit":
+                token = data["token"]
+                time = data["time"]
+                today, yesterday, total = database.registerVisit(token, time)
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(dumps({
+                    "today":today,
+                    "yesterday":yesterday,
+                    "total":total
+                }).encode())
+
 
     def do_GET(self):
         args = None
@@ -83,6 +95,11 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.send_response(200)
                     self.end_headers()
                     self.wfile.write(dumps(database.getGuestbookIds()).encode())
+            case "/admin/session":
+                token = database.getVisitorToken()
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(token.encode())
 
     def do_OPTIONS(self):
         #self.send_header("Access-Control-Allow-Origin", "*")
