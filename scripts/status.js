@@ -1,7 +1,7 @@
 var token = getCookie("accessToken")
 if(token != ""){
     
-    fetch("https://skademaskinen.win:11034/admin/status?id="+document.getElementById("id")+"&token="+token, {
+    fetch("https://skademaskinen.win:11034/admin/status?id="+document.getElementById("id").innerHTML+"&token="+token, {
         method:"get"
     }).then(response => {
         switch(response.status){
