@@ -46,6 +46,19 @@ var sections = [
 
 
 // general shit
+async function getBackend(){
+    return fetch(uri + "/.debugdata.json", {
+        method: "get",
+    }).then(response => response.json().then(json => {
+        return json["backend"]
+    })).catch(e => {
+        console.log(e)
+        return "https://skademaskinen.win:11034"
+    })
+}
+
+
+
 var favicon = document.createElement("link")
 favicon.rel = "icon"
 favicon.href = uri + "/assets/favicon.ico"

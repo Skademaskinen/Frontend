@@ -8,8 +8,8 @@ function showPassword(){
     }
 };
 
-function login(){
-    fetch("https://skademaskinen.win:11034/admin/auth", {
+async function login(){
+    fetch((await getBackend())+"/admin/auth", {
         method: "post",
         body: JSON.stringify({
             username: document.getElementById("username").value,
@@ -40,8 +40,8 @@ function login(){
     })
 }
 
-function register(){
-    fetch("https://skademaskinen.win:11034/admin/register", {
+async function register(){
+    fetch((await getBackend())+"/admin/register", {
         method: "post",
         body: JSON.stringify({
             username: document.getElementById("username").value,

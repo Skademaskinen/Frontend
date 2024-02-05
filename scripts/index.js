@@ -1,7 +1,7 @@
 
 
-function doVisit(token){
-    fetch("https://skademaskinen.win:11034/admin/visit", {
+async function doVisit(token){
+    fetch((await getBackend())+"/admin/visit", {
         method:"post",
         body: JSON.stringify({
             token: token,
@@ -35,23 +35,25 @@ function doVisit(token){
         }
     })
 }
-
-if(getCookie("session") == ""){
-    fetch("https://skademaskinen.win:11034/admin/session", {
-        method:"get"
-    }).then(response => {
-        switch(response.status){
-            case 200:
-                response.text().then(text => {
-                    document.cookie = "session=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString()
-                    doVisit(text)
-                })
-                break;
-            default:
-                console.log("WTF, exiting...")
-        }
-    })
+async function getSessionToken(){
+    if(getCookie("session") == ""){
+        fetch((await getBackend())+"/admin/session", {
+            method:"get"
+        }).then(response => {
+            switch(response.status){
+                case 200:
+                    response.text().then(text => {
+                        document.cookie = "session=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString()
+                        doVisit(text)
+                    })
+                    break;
+                default:
+                    console.log("WTF, exiting...")
+            }
+        })
+    }
+    else{
+        doVisit(getCookie("session"))
+    }
 }
-else{
-    doVisit(getCookie("session"))
-}
+getSessionToken()
