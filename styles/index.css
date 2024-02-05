@@ -1,8 +1,28 @@
 .visitor-counter {
-    margin-left: 45%;
-    margin-right: 45%;
+    margin: 10px;
     border: 1px solid #ff5500;
     border-radius: 5px;
     text-align: left;
     padding: 10px;
+    min-height: 100px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.commit-history {
+    margin: 10px;
+    border: 1px solid #ff5500;
+    border-radius: 5px;
+    text-align: left;
+    padding: 10px;
+    min-height: 100px;
+    display: inline-block;
+    min-width: 500px;
+    overflow: scroll;
+    max-height: 250px;
+    vertical-align: top;
+}
+
+.commit-date {
+    color: #999999;
 }

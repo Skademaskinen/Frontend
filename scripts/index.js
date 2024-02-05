@@ -35,6 +35,26 @@ async function doVisit(token){
         }
     })
 }
+
+async function commit_history(){
+    fetch("https://api.github.com/repos/Mast3rwaf1z/Mast3rwaf1z.github.io/commits", {
+        method: "get"
+    }).then(response => response.json().then(data => {
+        data.forEach(commit => {
+            console.log(commit.commit.message)
+            var div = document.getElementById("commit-history")
+            var msg = document.createElement("a")
+            msg.href = commit.html_url
+            msg.innerHTML = commit.commit.message
+            div.appendChild(msg)
+            var date = document.createElement("p")
+            date.innerHTML = commit.commit.committer.date
+            date.className = "commit-date"
+            div.appendChild(date)
+        })
+    }))
+}
+
 async function getSessionToken(){
     if(getCookie("session") == ""){
         fetch((await getBackend())+"/admin/session", {
@@ -57,3 +77,4 @@ async function getSessionToken(){
     }
 }
 getSessionToken()
+commit_history()
