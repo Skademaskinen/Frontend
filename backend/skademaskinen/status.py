@@ -1,10 +1,12 @@
 from subprocess import check_output
 import os
 import requests
+import sys
 
 LSBLK_PATH = os.getenv("LSBLK_PATH") if not os.getenv("LSBLK_PATH") == None else "lsblk"
 
 HOME_CACHE = []
+HOME_ADDR = "http://localhost:8081" if "--debug" in sys.argv else "https://skademaskinen.win:40455"
 
 def clear_home_cache():
     global HOME_CACHE
@@ -13,7 +15,7 @@ def clear_home_cache():
 def doHome():
     global HOME_CACHE
     if HOME_CACHE == {}:
-        HOME_CACHE = requests.get("https://skademaskinen.win:40455/status")
+        HOME_CACHE = requests.get(HOME_ADDR)
 
 def systemctl(id:str) -> str:
     match id.lower():
