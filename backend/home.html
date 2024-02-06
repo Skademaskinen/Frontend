@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 
 <html>
+    <div id="modal" class="modal">
+        <div clas="modal-content">
+            Set name of device with mac: <p id="mac" style="display: inline;"></p><br>
+            <input id="set-name-input" type="text">
+            <button id="set-name-confirm">Confirm</button>
+        </div>
+    </div>
     <body id="body" class="mainmatter">
         <h1 id="id">Home</h1><br>
         <h2>Boot device</h2>
-        <button id="scan-button">Scan</button>
+        <button id="scan-button">Scan now</button>
         <div id="devices">
             
         </div>
@@ -30,6 +37,7 @@
 </html>
 
 <link rel="stylesheet" href="../styles/common.css">
+<link rel="stylesheet" href="../styles/home.css">
 <script src="../scripts/common.js"></script>
 <script src="../scripts/status.js"></script>
 <script src="../scripts/home.js"></script>
