@@ -48,8 +48,7 @@ def scan():
     for host in nm.all_hosts():
         if "mac" in nm[host]["addresses"]:
             mac = nm[host]["addresses"]["mac"]
-            alias = nm[host]["addresses"]["ipv4"]
-            database.addDevice(mac, alias)
+            database.addDevice(mac)
     print("finished scan")
 
 
@@ -82,12 +81,28 @@ class RequestHandler(BaseHTTPRequestHandler):
             case "/boot":
                 token = data["token"]
                 mac = data["mac"]
+                if not verifyToken(token):
+                    self.send_response(403)
+                    self.end_headers()
+                    return
                 deviceData = database.getDeviceById(mac)
                 subnet = sys.argv[sys.argv.index("--inet")+1] if "--inet" in sys.argv else "10.225.171.0/24"
                 broadcast = ".".join(subnet.split(".")[:3]) + ".255"
                 os.system(f"wol {deviceData['mac']} --ipaddr={broadcast}")
                 self.send_response(200)
                 self.end_headers()
+            case "/setalias":
+                token = data["token"]
+                mac = data["mac"]
+                alias = data["alias"]
+                if not verifyToken(token):
+                    self.send_response(403)
+                    self.end_headers()
+                    return
+                database.setDeviceAlias(mac, alias)
+                self.send_response(200)
+                self.end_headers()
+                
 
 
 

@@ -177,6 +177,9 @@ class Database:
         else:
             return None
         
+    def setDeviceAlias(self, mac:str, alias:str):
+        doSQL(f"update devices set alias = '{alias}' where mac = '{mac}'")
+        
 
 
 
