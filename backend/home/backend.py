@@ -6,7 +6,6 @@ sys.path.append(f'{os.path.dirname(__file__)}/..')
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import loads, dumps
 from subprocess import check_output
-from requests import Session
 import nmap
 import threading
 
@@ -25,8 +24,6 @@ if "--debug" in sys.argv:
 else:
     interface = "end0"
     SERVER_ADDR = "https://skademaskinen.win:11034"
-
-
 print(f"Server addr: {SERVER_ADDR}")
 
 database = Database()
