@@ -64,9 +64,9 @@ async function getUsers(){
 
 var logout = document.getElementById("logoutbutton")
 logout.onclick = () => {
+    window.location.reload()
     deleteCookie("accessToken")
     deleteCookie("username")
-    window.location.reload()
 }
 
 getUsers()
