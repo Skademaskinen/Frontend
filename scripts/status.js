@@ -2,8 +2,15 @@
 async function getStatus(){
     var token = getCookie("accessToken")
     if(token != ""){
+        var id = document.getElementById("id").innerHTML
+        switch(id.toLowerCase()){
+            case "skademaskinen":
+                var api = await getBackend()+"/admin/status"
+            case "home":
+                var api = await getHome()+"/status"
+        }
 
-        fetch((await getBackend())+"/admin/status?id="+document.getElementById("id").innerHTML+"&token="+token, {
+        fetch(api+"?token="+token, {
             method:"get"
         }).then(response => {
             switch(response.status){

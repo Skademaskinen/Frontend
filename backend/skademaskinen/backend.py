@@ -8,7 +8,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import loads, dumps
 
 from lib.db import Database
-from skademaskinen.status import systemctl, update, lsblk, errors, clear_home_cache
+from lib.status import systemctl, update, lsblk, errors
 
 addr = (
     sys.argv[sys.argv.index("--hostname")+1] if "--hostname" in sys.argv else sys.argv[sys.argv.index("-H")+1] if "-H" in sys.argv else "",
@@ -18,13 +18,12 @@ addr = (
 database = Database()
 
 class RequestHandler(BaseHTTPRequestHandler):
-    def __init__(self, request, client_address, server) -> None:
-        super().__init__(request, client_address, server)
     
     def end_headers(self):
         if "--debug" in sys.argv:
             self.send_header("Access-Control-Allow-Origin", "*")
             self.send_header("Access-Control-Allow-Headers", "*")
+            self.send_header("Access-Control-Allow-Methods", "*")
         super().end_headers()
 
     def do_POST(self):
@@ -80,6 +79,34 @@ class RequestHandler(BaseHTTPRequestHandler):
                     "yesterday":yesterday,
                     "total":total
                 }).encode())
+            case "/admin/verify":
+                token = data["token"]
+                if database.verifyToken(token):
+                    self.send_response(200)
+                else:
+                    self.send_response(400)
+                self.end_headers()
+            case "/admin/authorize":
+                token = data["token"]
+                username = data["username"]
+                if database.verifyToken(token):
+                    database.authorize(username)
+                    self.send_response(200)
+                else:
+                    self.send_response(400)
+                self.end_headers()
+            case "/admin/deauthorize":
+                token = data["token"]
+                username = data["username"]
+                if database.verifyToken(token):
+                    database.deauthorize(username)
+                    self.send_response(200)
+                else:
+                    self.send_response(400)
+                self.end_headers()
+                
+
+
 
 
     def do_GET(self):
@@ -113,7 +140,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.wfile.write(token.encode())
             case "/admin/status":
                 if args is not None:
-                    id = args["id"]
                     token = args["token"]
                     if not database.verifyToken(token):
                         self.send_response(403)
@@ -121,13 +147,36 @@ class RequestHandler(BaseHTTPRequestHandler):
                         return
                     self.send_response(200)
                     self.end_headers()
-                    clear_home_cache()
                     self.wfile.write(dumps({
-                        "systemctl":systemctl(id),
-                        "update":update(id),
-                        "lsblk":lsblk(id),
-                        "errors":errors(id)
+                        "systemctl":systemctl(),
+                        "update":update("nixos-update"),
+                        "lsblk":lsblk(),
+                        "errors":errors()
                     }).encode())
+            case "/admin/users":
+                if args is not None:
+                    token = args["token"]
+                    if not database.verifyToken(token):
+                        self.send_response(403)
+                        self.end_headers()
+                        return
+                    self.send_response(200)
+                    self.end_headers()
+                    self.wfile.write(dumps(database.getUsers()).encode())
+
+    def do_DELETE(self):
+        size = int(self.headers.get('content-length', 0))
+        data = loads(self.rfile.read(size).decode())
+        match self.path:
+            case "/admin/delete":
+                token = data["token"]
+                username = data["username"]
+                if not database.verifyToken(token):
+                    self.send_response(403)
+                    self.end_headers()
+                database.deleteUser(username)
+                self.send_response(200)
+                self.end_headers()
 
 
     def do_OPTIONS(self):

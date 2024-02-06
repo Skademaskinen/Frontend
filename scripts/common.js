@@ -13,8 +13,11 @@ function getCookie(cname) {
         }
     }
     return "";
-  }
+}
 
+function deleteCookie(name){
+    document.cookie = name + "=" + ""
+}
 
 
 //data 
@@ -54,6 +57,17 @@ async function getBackend(){
     })).catch(e => {
         console.log(e)
         return "https://skademaskinen.win:11034"
+    })
+}
+// general shit
+async function getHome(){
+    return fetch(uri + "/.debugdata.json", {
+        method: "get",
+    }).then(response => response.json().then(json => {
+        return json["home"]
+    })).catch(e => {
+        console.log(e)
+        return "https://skademaskinen.win:40455"
     })
 }
 

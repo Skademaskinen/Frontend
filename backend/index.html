@@ -2,7 +2,8 @@
 <html>
     <body id="body" class="mainmatter">
         <h1>Admin panel</h1>
-        Hello <p style="display: inline;" id="username"></p>!
+        Hello <p style="display: inline;" id="username"></p>!<br>
+        <button id="logoutbutton">Log out</button>
         <h2>Devices</h2>
         <div id="devices">
             <button onclick="window.location.href = 'skademaskinen.html'" style="width:125px;">Skademaskinen</button><br><br>
@@ -11,14 +12,13 @@
         <br>
         <hr>
         <h2>Users</h2>
-        <div id="users">
-            <h2></h2>
+        <div id="users" class="users">
         </div>
         <br>
-        <hr>
     </body><hr>
     
 </html>
 <link rel="stylesheet" href="../styles/common.css">
+<link rel="stylesheet" href="../styles/admin.css">
 <script src="../scripts/common.js"></script>
 <script src="../scripts/admin.js"></script>

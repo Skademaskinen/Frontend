@@ -1,0 +1,20 @@
+.users{
+    margin-left: 20%;
+    margin-right: 20%;
+    overflow-y:scroll;
+    max-height:200px;
+}
+.user{
+    background-color: #252525;
+    max-width: 180px;
+    min-width: 170px;
+    border-radius: 5px;
+    padding: 1px;
+    border: 1px solid white;
+    display: inline-block;
+    margin: 5px;
+
+}
+.authbutton{
+    margin-bottom: 10px;
+}
