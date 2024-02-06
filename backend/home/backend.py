@@ -6,7 +6,7 @@ sys.path.append(f'{os.path.dirname(__file__)}/..')
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import loads, dumps
 from subprocess import check_output
-from requests import post
+from requests import Session
 import nmap
 import threading
 
@@ -19,20 +19,30 @@ addr = (
 )
 
 if "--debug" in sys.argv:
+    interface = "lo"
     with open(".debugdata.json", "r") as file:
         SERVER_ADDR = loads(file.read())["backend"]
 else:
+    interface = "end0"
     SERVER_ADDR = "https://skademaskinen.win:11034"
+
+
 print(f"Server addr: {SERVER_ADDR}")
 
 database = Database()
 
 def verifyToken(token:str) -> bool:
-    match post(SERVER_ADDR + "/admin/verify", json={"token":token}).status_code:
-        case 200:
-            return True
-        case _:
-            return False
+    code = check_output([
+        "curl",
+        "-X", "POST",
+        "-d", dumps({
+            "token":token
+        }),
+        SERVER_ADDR+"/admin/verify",
+        "--interface", interface,
+        "-w", "%{http_code}"
+    ]).decode().strip()
+    return code == "200"
         
 def scan():
     nm = nmap.PortScanner()
