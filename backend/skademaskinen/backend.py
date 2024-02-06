@@ -149,7 +149,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(dumps({
                         "systemctl":systemctl(),
-                        "update":update("nixos-update"),
+                        "update":update("nixos-upgrade"),
                         "lsblk":lsblk(),
                         "errors":errors()
                     }).encode())
