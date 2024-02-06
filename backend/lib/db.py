@@ -49,7 +49,7 @@ class Database:
         doSQL("create table if not exists tokencache (token varchar primary key, username varchar, foreign key(username) references users (username))")
         doSQL("create table if not exists guestbook (id integer primary key, name varchar not null, time integer not null, message varchar not null)")
         doSQL("create table if not exists visits (token varchar primary key, timestamp integer not null)")
-        doSQL("create table if not exists devices (mac varchar primary key, alias varchar)")
+        doSQL("create table if not exists devices (mac varchar primary key, alias varchar, flags varchar)")
 
     def addUser(self, username:str, password:str) -> bool:
         salt = bcrypt.gensalt()
@@ -179,6 +179,9 @@ class Database:
         
     def setDeviceAlias(self, mac:str, alias:str):
         doSQL(f"update devices set alias = '{alias}' where mac = '{mac}'")
+
+    def setDeviceFlags(self, mac:str, flags:str):
+        doSQL(f"update devices set flags = '{flags}' where mac = '{mac}'")
         
 
 

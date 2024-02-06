@@ -91,6 +91,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 os.system(f"wol {deviceData['mac']} --ipaddr={broadcast}")
                 self.send_response(200)
                 self.end_headers()
+                self.wfile.write(f"Successfully booted device by: {mac}".encode())
             case "/setalias":
                 token = data["token"]
                 mac = data["mac"]
@@ -102,6 +103,18 @@ class RequestHandler(BaseHTTPRequestHandler):
                 database.setDeviceAlias(mac, alias)
                 self.send_response(200)
                 self.end_headers()
+            case "/setflags":
+                token = data["token"]
+                mac = data["mac"]
+                flags = data["flags"]
+                if not verifyToken(token):
+                    self.send_response(403)
+                    self.end_headers()
+                    return
+                database.setDeviceFlags(mac, flags)
+                self.send_response(200)
+                self.end_headers()
+                
                 
 
 

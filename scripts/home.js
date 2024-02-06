@@ -1,25 +1,15 @@
 var modal = document.getElementById("modal")
-var closeButton = 
-
-async function bootDevice(mac){
-    fetch((await getHome())+"/boot", {
-        method: "post",
-        body: JSON.stringify({
-            mac: mac,
-            token: getCookie("accessToken")
-
-        })
-    }).then(response => response.text().then(text => document.getElementById("statusline").innerHTML = text))
-}
+var statusline = document.getElementById("statusline")
 
 
 async function generateDeviceButtons(){
     fetch((await getHome())+"/devices?token="+getCookie("accessToken"), {
         method: "get"
     }).then(response => response.json().then(devices => {
+        var devicesDiv = document.getElementById("devices")
+        var favoritesDiv = document.getElementById("favorite-devices")
         devices.forEach(device => {
-            var devicesDiv = document.getElementById("devices")
-            devicesDiv.className = "devices"
+            var flags = device.flags == null ? "" : device.flags
             var deviceDiv = document.createElement("div")
             deviceDiv.className = "device"
             var button = document.createElement("button")
@@ -55,6 +45,19 @@ async function generateDeviceButtons(){
                     }
                 }
             }
+            var favoriteButton = document.createElement("button")
+            
+            favoriteButton.innerHTML = flags.includes("f") ? "Unfavorite" : "Favorite"
+            favoriteButton.onclick = async () => {
+                fetch((await getHome())+"/setflags", {
+                    method:"post",
+                    body:JSON.stringify({
+                        token:getCookie("accessToken"),
+                        mac: device.mac,
+                        flags:flags.includes("f") ? flags.replaceAll("f", "") : flags + "f"
+                    })
+                }).then(_ => window.location.reload())
+            }
             var aliasH = document.createElement("h3")
             aliasH.innerHTML = device.alias
             var macP = document.createElement("p")
@@ -63,8 +66,23 @@ async function generateDeviceButtons(){
             deviceDiv.appendChild(macP)
             deviceDiv.appendChild(button)
             deviceDiv.appendChild(setAlias)
-            devicesDiv.appendChild(deviceDiv)
-            button.onclick = () => bootDevice(device.mac)
+            deviceDiv.appendChild(favoriteButton)
+            if(flags.includes("f")){
+                favoritesDiv.appendChild(deviceDiv)
+            }
+            else{
+                devicesDiv.appendChild(deviceDiv)
+            }
+            button.onclick = async () => {
+                fetch((await getHome())+"/boot", {
+                    method: "post",
+                    body: JSON.stringify({
+                        mac: device.mac,
+                        token: getCookie("accessToken")
+            
+                    })
+                }).then(response => response.text().then(text => statusline.innerHTML = text))
+            }
         })
     }))
 }
@@ -75,7 +93,7 @@ async function scan(){
         body: JSON.stringify({
             token: getCookie("accessToken")
         })
-    })
+    }).then(_ => statusline.innerHTML = "Successfully started scan")
 }
 
 
