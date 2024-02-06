@@ -64,7 +64,7 @@ async function getUsers(){
 
 var logout = document.getElementById("logoutbutton")
 logout.onclick = () => {
-    window.location.reload()
+    window.location.href = "../login.html"
     deleteCookie("accessToken")
     deleteCookie("username")
 }
