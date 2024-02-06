@@ -46,6 +46,7 @@ async function generateDeviceButtons(){
                 }
             }
             var favoriteButton = document.createElement("button")
+            favoriteButton.className = "device-button"
             
             favoriteButton.innerHTML = flags.includes("f") ? "Unfavorite" : "Favorite"
             favoriteButton.onclick = async () => {
