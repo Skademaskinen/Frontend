@@ -153,6 +153,11 @@ button:active{
     background-color: #444444;
     border-color: #ff5500;
 }
+button[disabled],
+button:disabled{
+    border-color: gray;
+    background-color: darkgray;
+}
 
 .scrolldiv {
     overflow:scroll;
