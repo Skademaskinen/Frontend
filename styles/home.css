@@ -10,11 +10,12 @@
 }
 
 .device{
-    background-color: #252525;
+    background-color: #303030;
     display: inline-block;
     margin: 5px;
     padding: 5px;
     border-radius: 5px;
+    border: 1px solid gray;
 }
 
 .device-button{
