@@ -24,8 +24,8 @@ async function login(){
                 console.log("Successfully Logged in!")
                 response.text().then(text => {
                     console.log(text)
-                    document.cookie = "accessToken=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString()
-                    document.cookie = "username=" + document.getElementById("username").value + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString()
+                    document.cookie = "accessToken=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString() + ";SameSite=strict"
+                    document.cookie = "username=" + document.getElementById("username").value + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString() + ";SameSite=strict"
                     window.location.href = uri + "/backend/index.html"
                 })
                 break

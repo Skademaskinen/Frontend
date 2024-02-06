@@ -67,6 +67,7 @@ logout.onclick = () => {
     deleteCookie("accessToken")
     deleteCookie("username")
     window.location.reload()
+    
 }
 
 getUsers()

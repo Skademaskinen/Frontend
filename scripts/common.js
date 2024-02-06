@@ -16,7 +16,7 @@ function getCookie(cname) {
 }
 
 function deleteCookie(name){
-    document.cookie = name + "=" + ""
+    document.cookie = name + "=" + getCookie(name)+";max-age=0;expires="+(new Date(0))
 }
 
 
@@ -59,7 +59,6 @@ async function getBackend(){
         return "https://skademaskinen.win:11034"
     })
 }
-// general shit
 async function getHome(){
     return fetch(uri + "/.debugdata.json", {
         method: "get",
