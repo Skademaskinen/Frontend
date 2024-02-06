@@ -6,8 +6,10 @@ async function getStatus(){
         switch(id.toLowerCase()){
             case "skademaskinen":
                 var api = await getBackend()+"/admin/status"
+                break
             case "home":
                 var api = await getHome()+"/status"
+                break
         }
 
         fetch(api+"?token="+token, {
