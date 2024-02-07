@@ -57,7 +57,7 @@ async function commit_history(){
 
 async function getSessionToken(){
     if(getCookie("session") == ""){
-        fetch((await getBackend())+"/admin/session", {
+        fetch((await getBackend())+"/admin/session?time="+Date.now()/1000, {
             method:"get"
         }).then(response => {
             switch(response.status){
