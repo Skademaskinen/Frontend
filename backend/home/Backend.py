@@ -74,7 +74,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         if verify(self.data["token"], SERVER, interface):
             match self.cmd:
                 case "scan":
-                    Thread(start=scan, args=[devices]).start()
+                    Thread(target=scan, args=[devices]).start()
                     self.ok()
                 case "boot":
                     os.system(f"wol {devices.get(self.data['mac'])} --ipaddr={'.'.join(getArg(['--inet'], '10.225.171.0/24', str).split('.')[:3])}.255")
