@@ -34,8 +34,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_header("Access-Control-Allow-Headers", "*")
             self.send_header("Access-Control-Allow-Methods", "*")
         else:
-            self.send_header("Access-Control-Allow-Origin", "about.skademaskinen.win")
-            self.send_header("Access-Control-Allow-Headers", "about.skademaskinen.win")
+            self.send_header("Access-Control-Allow-Origin", "https://about.skademaskinen.win")
+            self.send_header("Access-Control-Allow-Headers", "*")
         super().end_headers()
     def parseData(self):
         size = int(self.headers.get("Content-Length", 0))
