@@ -2,3 +2,4 @@ __pycache__
 .debugdata.json
 *.old
 *.db3
+venv
