@@ -6,6 +6,7 @@ sys.path.append(f'{os.path.dirname(__file__)}/..')
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import loads, dumps
 from threading import Thread
+import html
 
 from lib.tables.Devices import Devices
 from lib.Database import Database
@@ -57,6 +58,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 else:
                     self.data = {}
                     self.cmd = self.path[1:]
+        self.data = {key:html.escape(value) if type(value) is str else value for key, value in self.data.items()}
         
     def ok(self, data=""):
         self.send_response(200)
