@@ -6,7 +6,7 @@ class Tokens(Table):
     def columns(self) -> list[str]:
         return ["token varchar primary key",
                 "username varchar",
-                "foreign key(username) references users (username)"
+                f"foreign key(username) references {Users.__name__} (username)"
         ]
     
     def get(self, username:str) -> str:

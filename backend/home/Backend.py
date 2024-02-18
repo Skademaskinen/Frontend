@@ -58,7 +58,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 else:
                     self.data = {}
                     self.cmd = self.path[1:]
-        self.data = {key:html.escape(value) if type(value) is str else value for key, value in self.data.items()}
+        self.data = {key:html.escape(value) if type(value) is str and not key == "html" else value for key, value in self.data.items()}
         
     def ok(self, data=""):
         self.send_response(200)

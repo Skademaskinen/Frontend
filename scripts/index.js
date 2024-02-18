@@ -41,7 +41,7 @@ async function commit_history(){
         method: "get"
     }).then(response => response.json().then(data => {
         data.forEach(commit => {
-            console.log(commit.commit.message)
+            //console.log(commit.commit.message)
             var div = document.getElementById("commit-history")
             var msg = document.createElement("a")
             msg.href = commit.html_url

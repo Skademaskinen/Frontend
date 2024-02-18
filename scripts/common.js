@@ -78,53 +78,76 @@ favicon.href = uri + "/assets/favicon.ico"
 document.getElementById("body").appendChild(favicon)
 
 // header
-var body = document.getElementById("body")
-var header = document.createElement("div")
-// links to other places
-links.forEach(data => {
-    var name = data[0];
-    var addr = data[1];
-    var link = document.createElement("a")
-    link.style = "padding: unset;"
-    link.href = addr
-    var header_i = document.createElement("p")
-    header_i.className = "header_i"
-    header_i.innerHTML = "> "
-    var name_p = document.createElement("p")
-    name_p.className = "header_link"
-    name_p.innerHTML = name
-    link.appendChild(header_i)
-    link.appendChild(name_p)
-    header.appendChild(link)
-    header.appendChild(document.createTextNode(" | "))
-})
-console.log("Added general tabs")
+async function makeHeader(){
+    var body = document.getElementById("body")
+    var header = document.createElement("div")
+    // links to other places
+    links.forEach(data => {
+        var name = data[0];
+        var addr = data[1];
+        var link = document.createElement("a")
+        link.style = "padding: unset;"
+        link.href = addr
+        var header_i = document.createElement("p")
+        header_i.className = "header_i"
+        header_i.innerHTML = "> "
+        var name_p = document.createElement("p")
+        name_p.className = "header_link"
+        name_p.innerHTML = name
+        link.appendChild(header_i)
+        link.appendChild(name_p)
+        header.appendChild(link)
+        header.appendChild(document.createTextNode(" | "))
+    })
+    console.log("Added general tabs")
 
-// interests dropdown
-var dropdown = document.createElement("div")
-dropdown.className = "dropdown"
-var button = document.createElement("button")
-button.className = "dropbtn"
-button.innerHTML = "<p class='header_i'>\> </p><p class='header_link'>interests</p>"
-dropdown.appendChild(button)
-var dropdown_content = document.createElement("div")
-dropdown_content.className = "dropdown-content"
-sections.forEach(data => {
-    var a = document.createElement("a")
-    a.href = data[1]
-    a.innerHTML = "<p class='header_i'>\> </p><p class='header_link'>" + data[0] + "</p>"
-    dropdown_content.appendChild(a)
-})
-dropdown.appendChild(dropdown_content)
-header.appendChild(dropdown)
-console.log("Added interests dropdown menu")
+    // interests dropdown
+    var dropdown = document.createElement("div")
+    dropdown.className = "dropdown"
+    var button = document.createElement("button")
+    button.className = "dropbtn"
+    button.innerHTML = "<p class='header_i'>\> </p><p class='header_link'>interests</p>"
+    dropdown.appendChild(button)
+    var dropdown_content = document.createElement("div")
+    dropdown_content.className = "dropdown-content"
+    fetch((await getBackend())+"/admin/threads", {
+        method:"get"
+    }).then(response => response.json().then(ids => ids.forEach(async id => {
+        console.log(id)
+        fetch((await getBackend())+"/admin/thread?id="+id, {
+            method:"get"
+        }).then(response1 => response1.json().then(json => {
+            var name = json["name"]
+            var description = json["description"]
+            var entryButton = document.createElement("button")
+            entryButton.style = "all:unset; padding: 5px; display: block"
+            entryButton.onclick = () => {
+                window.location.href = uri + "/threads.html"
+                document.cookie = "currentThread="+id
+                console.log(getCookie("currentThread"))
+            }
+            entryButton.innerHTML = "<p class='header_i'>\> </p><p class='header_link'>" + name + "</p>"
+            dropdown_content.appendChild(entryButton)
+            console.log("added entry to dropdown")
+        }))
+    })))
+    dropdown.appendChild(dropdown_content)
+    header.appendChild(dropdown)
+    console.log("Added interests dropdown menu")
 
-header.appendChild(document.createElement("br"))
-header.appendChild(document.createElement("hr"))
-header.appendChild(document.createElement("br"))
+    header.appendChild(document.createElement("br"))
+    header.appendChild(document.createElement("hr"))
+    header.appendChild(document.createElement("br"))
 
-body.prepend(header)
-console.log("Finished executing header")
+    body.prepend(header)
+    console.log("Finished executing header")
+}
+
+// execution order
+makeHeader()
+
+
+
 
 // footer
 
