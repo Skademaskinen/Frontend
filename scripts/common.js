@@ -171,12 +171,13 @@ async function makeHeader(){
     newThreadModal.id = "new-thread-modal"
     var newThreadModalName = document.createElement("input")
     newThreadModalName.type = "text"
-    newThreadModalName.className = "new-thread-name"
+    newThreadModalName.className = "modal-input"
     newThreadModalName.id = "new-thread-name"
     var newThreadModalDescription = document.createElement("textarea")
-    newThreadModalDescription.className = "new-thread-description"
+    newThreadModalDescription.className = "modal-textarea"
     newThreadModalDescription.id = "new-thread-description"
     var newThreadModalPostButton = document.createElement("button")
+    newThreadModalPostButton.className = "modal-button"
     newThreadModalPostButton.innerHTML = "Post"
     newThreadModalPostButton.onclick = async () => {
         var name = newThreadModalName.value
@@ -208,7 +209,6 @@ async function makeHeader(){
 
 // execution order
 makeHeader()
-
 
 
 
