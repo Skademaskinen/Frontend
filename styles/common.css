@@ -168,3 +168,23 @@ button:disabled{
     font-family: monospace;
     white-space: nowrap;
 }
+
+.new-thread-description{
+    all: unset;
+    background-color: #444444;
+}
+
+.new-thread-name{
+    all:unset;
+    background-color: #444444;
+}
+
+.modal{
+    display:none;
+    position: fixed;
+    margin: 10px;
+    background-color: black;
+    padding: 5px;
+    border: 1px solid #ff5500;
+    border-radius: 5px;
+}

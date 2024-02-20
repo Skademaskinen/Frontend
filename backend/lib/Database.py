@@ -9,6 +9,8 @@ sys.path.append(f'{os.path.dirname(__file__)}/..')
 from lib.Utils import getArg
 
 debug = getArg(["--debug", "-d"], False, bool)
+verbose = getArg(["--verbose", "-v"], False, bool)
+showSQL = getArg(["--showSQL", "-sql"], False, bool)
 
 class Database(sqlite3.Connection):
     def __init__(self, path:str, tables:list):
@@ -28,7 +30,7 @@ class Database(sqlite3.Connection):
         self.commit()
         data = cursor.fetchall()
         cursor.close()
-        if debug:
+        if verbose or showSQL:
             print(f"\033[38;2;100;100;100mSQL:  {sql}\nArgs: {args}\nData: {data}\033[0m")
         return data
     

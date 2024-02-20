@@ -78,53 +78,139 @@ favicon.href = uri + "/assets/favicon.ico"
 document.getElementById("body").appendChild(favicon)
 
 // header
-var body = document.getElementById("body")
-var header = document.createElement("div")
-// links to other places
-links.forEach(data => {
-    var name = data[0];
-    var addr = data[1];
-    var link = document.createElement("a")
-    link.style = "padding: unset;"
-    link.href = addr
-    var header_i = document.createElement("p")
-    header_i.className = "header_i"
-    header_i.innerHTML = "> "
-    var name_p = document.createElement("p")
-    name_p.className = "header_link"
-    name_p.innerHTML = name
-    link.appendChild(header_i)
-    link.appendChild(name_p)
-    header.appendChild(link)
-    header.appendChild(document.createTextNode(" | "))
-})
-console.log("Added general tabs")
+async function makeHeader(){
+    var body = document.getElementById("body")
+    var header = document.createElement("div")
+    // links to other places
+    links.forEach(data => {
+        var name = data[0];
+        var addr = data[1];
+        var link = document.createElement("a")
+        link.style = "padding: unset;"
+        link.href = addr
+        var header_i = document.createElement("p")
+        header_i.className = "header_i"
+        header_i.innerHTML = "> "
+        var name_p = document.createElement("p")
+        name_p.className = "header_link"
+        name_p.innerHTML = name
+        link.appendChild(header_i)
+        link.appendChild(name_p)
+        header.appendChild(link)
+        header.appendChild(document.createTextNode(" | "))
+    })
+    console.log("Added general tabs")
 
-// interests dropdown
-var dropdown = document.createElement("div")
-dropdown.className = "dropdown"
-var button = document.createElement("button")
-button.className = "dropbtn"
-button.innerHTML = "<p class='header_i'>\> </p><p class='header_link'>interests</p>"
-dropdown.appendChild(button)
-var dropdown_content = document.createElement("div")
-dropdown_content.className = "dropdown-content"
-sections.forEach(data => {
-    var a = document.createElement("a")
-    a.href = data[1]
-    a.innerHTML = "<p class='header_i'>\> </p><p class='header_link'>" + data[0] + "</p>"
-    dropdown_content.appendChild(a)
-})
-dropdown.appendChild(dropdown_content)
-header.appendChild(dropdown)
-console.log("Added interests dropdown menu")
+    // interests dropdown
+    var dropdown = document.createElement("div")
+    dropdown.className = "dropdown"
+    var button = document.createElement("button")
+    button.className = "dropbtn"
+    button.innerHTML = "<p class='header_i'>\> </p><p class='header_link'>interests</p>"
+    dropdown.appendChild(button)
+    var dropdown_content = document.createElement("div")
+    dropdown_content.className = "dropdown-content"
+    // shitty workaround
+    var newThreadButtonContainer = document.createElement("div")
+    dropdown_content.appendChild(newThreadButtonContainer)
 
-header.appendChild(document.createElement("br"))
-header.appendChild(document.createElement("hr"))
-header.appendChild(document.createElement("br"))
+    fetch((await getBackend())+"/admin/threads", {
+        method:"get"
+    }).then(response => response.json().then(ids => {
+        ids.forEach(id => {
+            var button = document.createElement("button")
+            button.id = "entryButton-"+id
+            dropdown_content.appendChild(button)
+        })
+        ids.forEach(async id => {
+            fetch((await getBackend())+"/admin/thread?id="+id, {
+                method:"get"
+            }).then(response1 => response1.json().then(json => {
+                var name = json["name"]
+                var entryButton = document.getElementById("entryButton-"+id)
+                entryButton.style = "all:unset; padding: 5px; display: block"
+                entryButton.onclick = () => {
+                    window.location.href = uri + "/threads.html"
+                    document.cookie = "currentThread="+id
+                    console.log(getCookie("currentThread"))
+                }
+                entryButton.innerHTML = "<p class='header_i'>\> </p><p class='header_link'>" + name + "</p>"
+                console.log("added entry to dropdown")
+            }))
+        })
+    })).finally(async _ => {
+        // here we add the admin button
+        fetch((await getBackend()) + "/admin/verify", {
+            method: "post",
+            body: JSON.stringify({
+                token: getCookie("accessToken")
+            })
+        }).then(response => {
+            if(response.ok){
+                var button = document.createElement("button")
+                button.innerHTML = "New"
+                button.onclick = () => {
+                    var modal = document.getElementById("new-thread-modal")
+                    modal.style.display = modal.style.display == "block" ? "none" : "block"
+                }
+                newThreadButtonContainer.appendChild(button)
+            }
+        })
+    })
+    dropdown.appendChild(dropdown_content)
+    header.appendChild(dropdown)
+    console.log("Added interests dropdown menu")
 
-body.prepend(header)
-console.log("Finished executing header")
+    header.appendChild(document.createElement("br"))
+    header.appendChild(document.createElement("hr"))
+    header.appendChild(document.createElement("br"))
+
+    // new thread modal
+    var newThreadModal = document.createElement("div")
+    newThreadModal.className = "modal"
+    newThreadModal.id = "new-thread-modal"
+    var newThreadModalName = document.createElement("input")
+    newThreadModalName.type = "text"
+    newThreadModalName.className = "new-thread-name"
+    newThreadModalName.id = "new-thread-name"
+    var newThreadModalDescription = document.createElement("textarea")
+    newThreadModalDescription.className = "new-thread-description"
+    newThreadModalDescription.id = "new-thread-description"
+    var newThreadModalPostButton = document.createElement("button")
+    newThreadModalPostButton.innerHTML = "Post"
+    newThreadModalPostButton.onclick = async () => {
+        var name = newThreadModalName.value
+        var description = newThreadModalDescription.value
+        fetch((await getBackend()) + "/admin/newthread", {
+            method: "post",
+            body: JSON.stringify({
+                token: getCookie("accessToken"),
+                name: name,
+                description: description
+            })
+        }).then(_ => window.location.reload())
+    }
+    newThreadModal.appendChild(document.createTextNode("Name"))
+    newThreadModal.appendChild(document.createElement("br"))
+    newThreadModal.appendChild(newThreadModalName)
+    newThreadModal.appendChild(document.createElement("br"))
+    newThreadModal.appendChild(document.createTextNode("Description"))
+    newThreadModal.appendChild(document.createElement("br"))
+    newThreadModal.appendChild(newThreadModalDescription)
+    newThreadModal.appendChild(document.createElement("br"))
+    newThreadModal.appendChild(newThreadModalPostButton)
+
+
+    body.prepend(newThreadModal)
+    body.prepend(header)
+    console.log("Finished executing header")
+}
+
+// execution order
+makeHeader()
+
+
+
 
 // footer
 
