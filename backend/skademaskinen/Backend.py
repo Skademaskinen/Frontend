@@ -123,13 +123,13 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.ok()
                 case "editthread":
                     if self.data["description"]:
-                        threads.setDescription(self.data["description"])
+                        threads.setDescription(self.data["id"], self.data["description"])
                     if self.data["name"]:
-                        threads.setName(self.data["name"])
+                        threads.setName(self.data["id"], self.data["name"])
                     self.ok()
                 case "editpost":
                     if self.data["html"]:
-                        posts.setContent(self.data["html"])
+                        posts.setContent(self.data["id"], self.data["html"])
                     self.ok()
         else:
             self.deny()

@@ -17,17 +17,20 @@ async function setPosts(){
     }).then(response => response.json().then(ids => {
         ids.forEach(id1 => {
             var div = document.createElement("div")
+            var outerDiv = document.createElement("div")
             div.id = id1
+            outerDiv.id = "outer-"+id1
             div.className = "post"
-            container.appendChild(div)
+            outerDiv.appendChild(div)
+            container.appendChild(outerDiv)
         })
         ids.forEach(async id1 => {
             fetch((await getBackend()) + "/admin/post?id="+id1, {
                 method: "get"
             }).then(response1 => response1.json().then(async json => {
                 var div = document.getElementById(id1)
+                var outerDiv = document.getElementById("outer-"+id1)
                 div.innerHTML = json.content
-                div.appendChild(document.createElement("br"))
                 container.appendChild(div)
                 fetch((await getBackend()) + "/admin/verify", {
                     method: "post",
@@ -48,7 +51,18 @@ async function setPosts(){
                                 })
                             }).then(_ => window.location.reload())
                         }
-                        div.appendChild(button)
+                        outerDiv.appendChild(button)
+                        var editButton = document.createElement("button")
+                        editButton.id = "edit-button-"+id1
+                        editButton.innerHTML = "Edit"
+                        editButton.onclick = async () => {
+                            var editDiv = document.getElementById("edit-post-div")
+                            editDiv.style.display = editDiv.style.display == "block" ? "none" : "block"
+                            document.cookie = "postEditing="+id1
+                            document.getElementById("edit-post-content").value = document.getElementById(id1).innerHTML
+                        }
+                        outerDiv.appendChild(editButton)
+                        outerDiv.appendChild(div)
                     }
                 })
             }))
@@ -65,6 +79,7 @@ async function addButtonsIfAdmin(){
         if(response.status == 200){
             document.getElementById("create-button").style.display = "inline"
             document.getElementById("delete-button").style.display = "inline"
+            document.getElementById("edit-button").style.display = "inline"
         }
     })
 }
@@ -92,6 +107,25 @@ document.getElementById("delete-button").onclick = async () => {
     }).then(_ => window.location.href = uri + "/index.html")
 }
 
+document.getElementById("edit-button").onclick = async () => {
+    var editDiv = document.getElementById("edit-div")
+    editDiv.style.display = editDiv.style.display == "block" ? "none" : "block"
+    document.getElementById("edit-thread-name").value = document.getElementById("thread-header").innerHTML
+    document.getElementById("edit-thread-description").value = document.getElementById("thread-description").innerHTML
+}
+
+document.getElementById("edit-post-button").onclick = async () => {
+    fetch((await getBackend()) + "/admin/editpost", {
+        method: "post",
+        body: JSON.stringify({
+            html: document.getElementById("edit-post-content").value,
+            token: getCookie("accessToken"),
+            id:getCookie("postEditing")
+        })
+    }).then(_ => window.location.reload())
+
+}
+
 document.getElementById("post-button").onclick = async () => {
     var html = document.getElementById("new-post-content").value
     fetch((await getBackend()) + "/admin/post", {
@@ -100,6 +134,20 @@ document.getElementById("post-button").onclick = async () => {
             token: getCookie("accessToken"),
             html: html,
             id: id
+        })
+    }).then(_ => window.location.reload())
+}
+
+document.getElementById("edit-confirm").onclick = async () => {
+    var name = document.getElementById("edit-thread-name").value
+    var description = document.getElementById("edit-thread-description").value
+    fetch((await getBackend()) + "/admin/editthread", {
+        method: "post",
+        body: JSON.stringify({
+            id: id,
+            name:name,
+            description:description,
+            token:getCookie("accessToken")
         })
     }).then(_ => window.location.reload())
 }

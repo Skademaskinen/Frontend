@@ -131,7 +131,7 @@ async function makeHeader(){
                 entryButton.style = "all:unset; padding: 5px; display: block"
                 entryButton.onclick = () => {
                     window.location.href = uri + "/threads.html"
-                    document.cookie = "currentThread="+id
+                    document.cookie = "currentThread="+id + "; path=/"
                     console.log(getCookie("currentThread"))
                 }
                 entryButton.innerHTML = "<p class='header_i'>\> </p><p class='header_link'>" + name + "</p>"

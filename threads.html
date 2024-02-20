@@ -6,9 +6,24 @@
         <textarea type="text" id="new-post-content" class="new-text"></textarea><br>
         <button id="post-button">Post</button>
     </div>
+    <div id="edit-div" class="new-post">
+        Name: <br>
+        <input type="text" id="edit-thread-name"><br>
+        Description:<br>
+        <textarea type="text" id="edit-thread-description" class="new-text"></textarea><br>
+        <button id="edit-confirm">Confirm</button>
+    </div>
+    <div id="edit-post-div" class="new-post">
+        Content:<br>
+        <textarea type="text" id="edit-post-content" class="new-text"></textarea><br>
+        <button id="edit-post-button">Confirm</button>
+
+    </div>
+
     <body id="body" class="mainmatter">
         <button id="create-button" style="display:none;">Create new</button> 
-        <button id="delete-button" style="display:none;">Delete Thread</button>
+        <button id="delete-button" style="display:none;">Delete Thread</button> 
+        <button id="edit-button" style="display:none;">Edit Thread</button>
 
         <h1 id="thread-header"></h1>
         <p id="thread-description"></p>
