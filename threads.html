@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 
 <html>
+    <div id="new-post" class="new-post">
+        Content:<br>
+        <textarea type="text" id="new-post-content" class="new-text"></textarea><br>
+        <button id="post-button">Post</button>
+    </div>
     <body id="body" class="mainmatter">
+        <button id="create-button" style="display:none;">Create new</button> 
+        <button id="delete-button" style="display:none;">Delete Thread</button>
+
         <h1 id="thread-header"></h1>
         <p id="thread-description"></p>
         <div id="posts-container"></div>
@@ -10,5 +18,6 @@
 </html>
 
 <link rel="stylesheet" href="styles/common.css">
+<link rel="stylesheet" href="styles/threads.css">
 <script src="scripts/common.js"></script>
 <script src="scripts/threads.js"></script>

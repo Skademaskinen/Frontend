@@ -23,6 +23,7 @@ addr = (
 )
 db = getArg(["--database", "-db"], "/tmp/skademaskinen.db3", str)
 debug = getArg(["--debug", "-d"], False, bool)
+verbose = getArg(["--verbose", "-v"], False, bool)
 
 database = Database(db, [Users, Tokens, Visits, Guestbook, Threads, Posts])
 users:Users = database.tables()[Users.__name__]
@@ -60,7 +61,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.data = {}
                     self.cmd = self.path[7:]
         self.data = {key:html.escape(value) if type(value) is str and not key == "html" else value for key, value in self.data.items()}
-        if debug:
+        if verbose:
             print(f"\033[38;2;100;100;100mData:    {self.data}\nCommand: {self.cmd}\nPath:    {self.path}\033[0m")
 
 
@@ -114,24 +115,27 @@ class RequestHandler(BaseHTTPRequestHandler):
                     users.deauthorize(self.data["username"])
                     self.ok()
                 case "post":
-                    posts.new(self.data["html"])
+                    posts.new(self.data["id"], self.data["html"])
                     self.ok()
                 case "newthread":
                     threads.new(self.data["name"], self.data["description"])
+                    self.ok()
                 case "editthread":
                     if self.data["description"]:
                         threads.setDescription(self.data["description"])
                     if self.data["name"]:
                         threads.setName(self.data["name"])
+                    self.ok()
                 case "editpost":
                     if self.data["html"]:
                         posts.setContent(self.data["html"])
+                    self.ok()
         else:
             self.deny()
     
     def do_GET(self):
         self.parseData()
-        if debug: print(self.data)
+        if verbose: print(self.data)
         match self.cmd:
             case "guestbook":
                 if self.data:
@@ -160,7 +164,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.ok(dumps(posts.ids(self.data["id"])))
                 return
             case "post":
-                self.ok(posts.get(self.data["id"]))
+                self.ok(dumps(posts.get(self.data["id"])))
                 return
         if tokens.verify(self.data["token"]):
             match self.cmd:
@@ -178,15 +182,17 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def do_DELETE(self):
         self.parseData()
-        if tokens.verify(tokens.verify(self.data["token"])):
+        if tokens.verify(self.data["token"]):
             match self.cmd:
                 case "delete":
                     users.delete(self.data["username"])
                     self.ok()
                 case "thread":
                     threads.delete(self.data["id"])
+                    self.ok()
                 case "post":
                     posts.delete(self.data["id"])
+                    self.ok()
         else:
             self.deny()
 
