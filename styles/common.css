@@ -169,22 +169,51 @@ button:disabled{
     white-space: nowrap;
 }
 
-.new-thread-description{
-    all: unset;
-    background-color: #444444;
-}
-
-.new-thread-name{
-    all:unset;
-    background-color: #444444;
-}
-
 .modal{
     display:none;
     position: fixed;
     margin: 10px;
-    background-color: black;
+    background-color: rgba(50, 50, 50, 0.9);
     padding: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    min-width:500px;
+    min-height:200px;
+    overflow-y: scroll;
+}
+
+.modal-textarea{
+    all:unset;
+    white-space:pre-wrap;
+    background-color: #222222;
     border: 1px solid #ff5500;
     border-radius: 5px;
+    text-align: left;
+    padding: 5px;
+    min-width:500px;
+    min-height: 200px;
+    margin:5px;
+    overflow-y:scroll;
+}
+
+.modal-textarea:focus{
+    background-color: #262626;
+}
+
+.modal-input{
+    all:unset;
+    white-space:pre-wrap;
+    background-color: #222222;
+    border: 1px solid #ff5500;
+    border-radius: 5px;
+    text-align: left;
+    padding: 5px;
+}
+.modal-input:focus{
+    background-color: #262626;
+}
+
+.modal-button{
+    cursor:default;
+
 }
