@@ -227,6 +227,10 @@ function makeDraggable(element){
 // execution order
 makeHeader()
 
+var title = document.createElement("title")
+title.innerHTML = document.getElementsByTagName("h1")[0].innerHTML
+document.body.appendChild(title)
+
 
 
 // footer
