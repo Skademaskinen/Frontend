@@ -21,13 +21,14 @@ class Users(Table):
             return
         self.database.doSQL(f"insert into {type(self).__name__} values(?, ?, ?, False)", [username, hash.decode(), salt.decode()])
 
+    def has(self, username:str) -> bool:
+        return not self.database.doSQL(f"select * from {type(self).__name__} where username = ?", [username]) == []
     def delete(self, username):
         self.database.doSQL(f"delete from {type(self).__name__} where username = ?", [username])
 
     def verify(self, username:str, password:str):
         data = self.database.doSQL(f"select * from {type(self).__name__} where username = ?", [username])
         if not data:
-            self.add(username, password)
             return False
         elif not data[0][3]:
             return False
