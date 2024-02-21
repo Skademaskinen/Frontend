@@ -169,6 +169,7 @@ async function makeHeader(){
     var newThreadModal = document.createElement("div")
     newThreadModal.className = "modal"
     newThreadModal.id = "new-thread-modal"
+    makeDraggable(newThreadModal)
     var newThreadModalName = document.createElement("input")
     newThreadModalName.type = "text"
     newThreadModalName.className = "modal-input"
@@ -207,6 +208,22 @@ async function makeHeader(){
     console.log("Finished executing header")
 }
 
+// draggable modals
+function makeDraggable(element){
+    element.onmousedown = event => {
+        event = event || window.Event
+        document.onmousemove = event => {
+            var x = event.clientX
+            var y = event.clientY
+            element.style.left = (x-(element.offsetWidth/3)) + "px";
+            element.style.top = (y-20) + "px";
+        }
+        document.onmouseup = _ => {
+            document.onmousedown = null
+            document.onmousemove = null
+        }
+    }
+}
 // execution order
 makeHeader()
 

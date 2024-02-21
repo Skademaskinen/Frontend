@@ -171,7 +171,8 @@ button:disabled{
 
 .modal{
     display:none;
-    position: fixed;
+    position: absolute;
+    z-index: 9;
     margin: 10px;
     background-color: rgba(50, 50, 50, 0.9);
     padding: 5px;
@@ -180,6 +181,7 @@ button:disabled{
     min-width:500px;
     min-height:200px;
     overflow-y: scroll;
+    cursor:move;
 }
 
 .modal-textarea{
@@ -194,6 +196,7 @@ button:disabled{
     min-height: 200px;
     margin:5px;
     overflow-y:scroll;
+    cursor:text;
 }
 
 .modal-textarea:focus{
@@ -208,12 +211,13 @@ button:disabled{
     border-radius: 5px;
     text-align: left;
     padding: 5px;
+    cursor:text;
 }
 .modal-input:focus{
     background-color: #262626;
 }
 
 .modal-button{
-    cursor:default;
+    cursor:pointer;
 
 }

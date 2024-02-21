@@ -151,3 +151,7 @@ document.getElementById("edit-confirm").onclick = async () => {
         })
     }).then(_ => window.location.reload())
 }
+
+makeDraggable(document.getElementById("new-post"))
+makeDraggable(document.getElementById("edit-div"))
+makeDraggable(document.getElementById("edit-post-div"))
