@@ -171,7 +171,8 @@ button:disabled{
 
 .modal{
     display:none;
-    position: fixed;
+    position: absolute;
+    z-index: 9;
     margin: 10px;
     background-color: rgba(50, 50, 50, 0.9);
     padding: 5px;
