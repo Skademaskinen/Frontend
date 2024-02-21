@@ -33,7 +33,7 @@ async function login(){
                 console.log("Error!")
                 response.text().then(text => {
                     var statusLine = document.getElementById("statusLine")
-                    statusLine.innerHTML = text
+                    statusLine.innerHTML = "Denied!"
                     statusLine.style = "color: red;"
                 })
         }
@@ -64,7 +64,7 @@ async function register(){
                 console.log("Error!")
                 response.text().then(text => {
                     var statusLine = document.getElementById("statusLine")
-                    statusLine.innerHTML = text
+                    statusLine.innerHTML = "Denied!"
                     statusLine.style = "color: red;"
                 })
         }

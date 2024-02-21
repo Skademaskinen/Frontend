@@ -88,7 +88,11 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.deny("Access Denied")
                 return
             case "register":
-                users.add(self.data["username"], self.data["password"])
+                if not users.has(self.data["username"]):
+                    users.add(self.data["username"], self.data["password"])
+                    self.ok()
+                else:
+                    self.deny()
                 return
             case "guestbook":
                 if all([self.data["time"] > (epoch + 6e10) for epoch in guestbook.timestamps(self.data["name"])]):
