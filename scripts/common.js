@@ -38,14 +38,6 @@ var links = [
     ["contact", uri + "/contact.html"],
     ["guestbook", uri + "/guestbook.html"]
 ]
-var sections = [
-    ["anime", uri + "/sections/anime.html"], 
-    ["gaming", uri + "/sections/gaming.html"], 
-    ["music", uri + "/sections/music.html"], 
-    ["programming", uri + "/sections/programming.html"], 
-    ["linux", uri + "/sections/linux.html"],
-    ["warhammer", uri +  "/sections/warhammer.html"]
-]
 
 
 // general shit
