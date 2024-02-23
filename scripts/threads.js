@@ -15,7 +15,8 @@ async function setPosts(){
     fetch((await getBackend()) + "/admin/posts?id="+id, {
         method: "get"
     }).then(response => response.json().then(ids => {
-        ids.forEach(id1 => {
+        for(var i = 0; i < ids.length; i++){
+            var id1 = ids[i]
             var div = document.createElement("div")
             var outerDiv = document.createElement("div")
             div.id = id1
@@ -23,7 +24,7 @@ async function setPosts(){
             div.className = "post"
             outerDiv.appendChild(div)
             container.appendChild(outerDiv)
-        })
+        }
         ids.forEach(async id1 => {
             fetch((await getBackend()) + "/admin/post?id="+id1, {
                 method: "get"
