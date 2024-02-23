@@ -12,76 +12,53 @@ async function setGeneral(){
     }))
 }
 async function setPosts(){
+    // fuckit rewrite
     fetch((await getBackend()) + "/admin/posts?id="+id, {
         method: "get"
-    }).then(response => response.json().then(ids => {
-        ids.forEach(id1 => {
-            var div = document.createElement("div")
-            var outerDiv = document.createElement("div")
-            div.id = id1
-            outerDiv.id = "outer-"+id1
-            div.className = "post"
-            outerDiv.appendChild(div)
-            container.appendChild(outerDiv)
-        })
-        ids.forEach(async id1 => {
-            fetch((await getBackend()) + "/admin/post?id="+id1, {
-                method: "get"
-            }).then(response1 => response1.json().then(async json => {
-                var div = document.getElementById(id1)
-                var outerDiv = document.getElementById("outer-"+id1)
-                div.innerHTML = json.content
-                container.appendChild(div)
-                fetch((await getBackend()) + "/admin/verify", {
-                    method: "post",
+    }).then(response => response.json().then(ids => ids.forEach(async postId => {
+        var div = document.createElement("div")
+        div.className = "post"
+        container.insertChildAtIndex(div, postId)
+        fetch((await getBackend()) + "/admin/post?id="+postId, {method:"get"}).then(response1 => response1.json().then(json => {
+            var inner = document.createElement("div")
+            div.appendChild(inner)
+            div.appendChild(document.createElement("br"))
+            inner.id = postId
+            inner.innerHTML = json.content
+        }))
+        if(await verify()){
+            var deleteButton = document.createElement("button")
+            deleteButton.innerHTML = "Delete"
+            deleteButton.onclick = async () => {
+                fetch((await getBackend()), {
+                    method: "delete",
                     body: JSON.stringify({
-                        token:getCookie("accessToken")
+                        token: getCookie("accessToken"),
+                        id: postId
                     })
-                }).then(response => {
-                    if(response.status == 200){
-                        var button = document.createElement("button")
-                        button.id = "delete-button-"+id1
-                        button.innerHTML = "Delete"
-                        button.onclick = async () => {
-                            fetch((await getBackend()) + "/admin/post", {
-                                method: "delete", 
-                                body: JSON.stringify({
-                                    token: getCookie("accessToken"),
-                                    id: id1
-                                })
-                            }).then(_ => window.location.reload())
-                        }
-                        outerDiv.appendChild(button)
-                        var editButton = document.createElement("button")
-                        editButton.id = "edit-button-"+id1
-                        editButton.innerHTML = "Edit"
-                        editButton.onclick = async () => {
-                            var editDiv = document.getElementById("edit-post-div")
-                            editDiv.style.display = editDiv.style.display == "block" ? "none" : "block"
-                            document.cookie = "postEditing="+id1
-                            document.getElementById("edit-post-content").value = document.getElementById(id1).innerHTML
-                        }
-                        outerDiv.appendChild(editButton)
-                        outerDiv.appendChild(div)
-                    }
-                })
-            }))
-        })
-    }))
-}
-async function addButtonsIfAdmin(){
-    fetch((await getBackend()) + "/admin/verify", {
-        method: "post",
-        body: JSON.stringify({
-            token:getCookie("accessToken")
-        })
-    }).then(response => {
-        if(response.status == 200){
-            document.getElementById("create-button").style.display = "inline"
-            document.getElementById("delete-button").style.display = "inline"
-            document.getElementById("edit-button").style.display = "inline"
+                }).then(_ => window.location.reload())
+            }
+            div.appendChild(deleteButton)
+            div.appendChild(document.createTextNode(" "))
+            var editButton = document.createElement("button")
+            editButton.innerHTML = "Edit"
+            editButton.onclick = async _ => {
+                var editDiv = document.getElementById("edit-post-div")
+                editDiv.style.display = editDiv.style.display == "block" ? "none" : "block"
+                document.cookie = "postEditing="+postId
+                document.getElementById("edit-post-content").value = document.getElementById(postId).innerHTML
+            }
+            div.appendChild(editButton)
         }
-    })
+    }))) 
+}    
+
+async function addButtonsIfAdmin(){
+    if(await verify()){
+        document.getElementById("create-button").style.display = "inline"
+        document.getElementById("delete-button").style.display = "inline"
+        document.getElementById("edit-button").style.display = "inline"
+    }
 }
 
 setGeneral()

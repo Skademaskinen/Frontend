@@ -55,7 +55,6 @@ async function getBackend(){
     }).then(response => response.json().then(json => {
         return json["backend"]
     })).catch(e => {
-        console.log(e)
         return "https://skademaskinen.win:11034"
     })
 }
@@ -65,7 +64,6 @@ async function getHome(){
     }).then(response => response.json().then(json => {
         return json["home"]
     })).catch(e => {
-        console.log(e)
         return "https://skademaskinen.win:40455"
     })
 }
@@ -140,22 +138,16 @@ async function makeHeader(){
         })
     })).finally(async _ => {
         // here we add the admin button
-        fetch((await getBackend()) + "/admin/verify", {
-            method: "post",
-            body: JSON.stringify({
-                token: getCookie("accessToken")
-            })
-        }).then(response => {
-            if(response.ok){
-                var button = document.createElement("button")
-                button.innerHTML = "New"
-                button.onclick = () => {
-                    var modal = document.getElementById("new-thread-modal")
-                    modal.style.display = modal.style.display == "block" ? "none" : "block"
-                }
-                newThreadButtonContainer.appendChild(button)
+        if(await verify()){
+            var button = document.createElement("button")
+            button.innerHTML = "New"
+            button.onclick = () => {
+                var modal = document.getElementById("new-thread-modal")
+                modal.style.display = modal.style.display == "block" ? "none" : "block"
             }
-        })
+            newThreadButtonContainer.appendChild(button)
+
+        }
     })
     dropdown.appendChild(dropdown_content)
     header.appendChild(dropdown)
@@ -208,6 +200,16 @@ async function makeHeader(){
     console.log("Finished executing header")
 }
 
+Element.prototype.insertChildAtIndex = function(child, index) {
+    if (!index) index = 0
+    if (index >= this.children.length) {
+        this.appendChild(child)
+    } 
+    else {
+        this.insertBefore(child, this.children[index])
+    }
+}
+
 // draggable modals
 function makeDraggable(element){
     element.onmousedown = event => {
@@ -224,6 +226,26 @@ function makeDraggable(element){
         }
     }
 }
+
+// standard easy fetches from server...
+async function verify(){
+    if(getCookie("verified") == "true"){
+        return true
+    }
+    return await fetch((await getBackend()) + "/admin/verify", {
+        method: "post",
+        body: JSON.stringify({
+            token:getCookie("accessToken")
+        })
+    }).then(response => {
+        if(response.ok){
+            document.cookie = "verified=true"
+        }
+        return response.ok
+    })
+}
+
+
 // execution order
 makeHeader()
 
