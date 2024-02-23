@@ -67,6 +67,7 @@ logout.onclick = () => {
     window.location.href = "../login.html"
     deleteCookie("accessToken")
     deleteCookie("username")
+    deleteCookie("verified")
 }
 
 getUsers()

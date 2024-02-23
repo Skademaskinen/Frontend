@@ -239,7 +239,7 @@ async function verify(){
         })
     }).then(response => {
         if(response.ok){
-            document.cookie = "verified=true"
+            document.cookie = "verified=true; path=/;"
         }
         return response.ok
     })
