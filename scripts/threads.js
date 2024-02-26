@@ -64,7 +64,13 @@ async function addButtonsIfAdmin(){
             var button = document.createElement("button")
             button.innerHTML = "Delete"
             imageContainer.appendChild(button)
-            imageContainer.appendChild(document.createTextNode((await getBackend()) + "/admin/images/"+path))
+            var a = document.createElement("a")
+            var path = (await getBackend()) + "/admin/images/"+path
+
+            a.innerHTML =  " "+path
+            a.href = path
+            imageContainer.appendChild(a)
+            imageContainer.style.padding = "5px"
             button.onclick = async () => {
                 fetch((await getBackend()) + "/admin/images", {
                     method: "delete",
