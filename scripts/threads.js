@@ -55,9 +55,27 @@ async function setPosts(){
 
 async function addButtonsIfAdmin(){
     if(await verify()){
-        document.getElementById("create-button").style.display = "inline"
-        document.getElementById("delete-button").style.display = "inline"
-        document.getElementById("edit-button").style.display = "inline"
+        document.getElementById("top-editor").style.display = "inline"
+        var imagesContainer = document.getElementById("images")
+        fetch((await getBackend()) + "/admin/images", {
+            method: "get",
+        }).then(response => response.json().then(json => json.forEach(async path => {
+            var imageContainer = document.createElement("div")
+            var button = document.createElement("button")
+            button.innerHTML = "Delete"
+            imageContainer.appendChild(button)
+            imageContainer.appendChild(document.createTextNode((await getBackend()) + "/admin/images/"+path))
+            button.onclick = async () => {
+                fetch((await getBackend()) + "/admin/images", {
+                    method: "delete",
+                    body: JSON.stringify({
+                        token: getCookie("accessToken"),
+                        file: path
+                    })
+                }).then(_ => window.location.reload())
+            }
+            imagesContainer.appendChild(imageContainer)
+        })))
     }
 }
 
@@ -127,6 +145,19 @@ document.getElementById("edit-confirm").onclick = async () => {
             token:getCookie("accessToken")
         })
     }).then(_ => window.location.reload())
+}
+
+document.getElementById("image-upload-button").onclick = async () => {
+    var file = document.getElementById("image-upload").files[0]
+    if(["image/png", "image/jpg", "image/jpeg", "image/gif"].includes(file.type)){
+        document.getElementById("image-upload-status").innerHTML = "uploading..."
+        fetch((await getBackend()) + "/admin/image?token="+getCookie("accessToken")+"&filename="+file.name, {
+            method: "put",
+            body: file
+        }).finally(_ => {
+            document.getElementById("image-upload-status").innerHTML = "finished upload"
+        })
+    }
 }
 
 makeDraggable(document.getElementById("new-post"))
