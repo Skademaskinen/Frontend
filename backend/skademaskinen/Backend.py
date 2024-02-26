@@ -47,30 +47,37 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def parseData(self):
         size = int(self.headers.get("Content-Length", 0))
+        if "?" in self.path:
+            self.data = {kv.split("=")[0]:kv.split("=")[1] for kv in self.path.split("?")[1].split("&")}
+            self.cmd = self.path.split("?")[0][7:]
+        else:
+            self.data = {}
+            self.cmd = self.path[7:]
+        
         match self.command:
             case "POST":
-                self.data = loads(self.rfile.read(size).decode()) if size else {}
+                if not self.data:
+                    self.data = loads(self.rfile.read(size).decode()) if size else {}
                 self.cmd = self.path[7:]
             case "DELETE":
-                self.data = loads(self.rfile.read(size).decode()) if size else {}
+                if not self.data:
+                    self.data = loads(self.rfile.read(size).decode()) if size else {}
                 self.cmd = self.path[7:]
-            case _:
-                if "?" in self.path:
-                    self.data = {kv.split("=")[0]:kv.split("=")[1] for kv in self.path.split("?")[1].split("&")}
-                    self.cmd = self.path.split("?")[0][7:]
-                else:
-                    self.data = {}
-                    self.cmd = self.path[7:]
+            case "PUT":
+                self.file = self.rfile.read(size)
         self.data = {key:html.escape(value) if type(value) is str and not key == "html" else value for key, value in self.data.items()}
         if verbose:
             print(f"\033[38;2;100;100;100mData:    {self.data}\nCommand: {self.cmd}\nPath:    {self.path}\033[0m")
 
 
-    def ok(self, data=""):
+    def ok(self, data="", encode=True):
         self.send_response(200)
         self.end_headers()
         if data:
-            self.wfile.write(data.encode())
+            if encode:
+                self.wfile.write(data.encode())
+            else:
+                self.wfile.write(data)
         
     def deny(self, data=""):
         self.send_error(400)
@@ -141,6 +148,10 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.parseData()
         if verbose: print(self.data)
+        if "images" in self.cmd and not self.cmd == "images":
+            with open(self.cmd, "rb") as file:
+                self.ok(file.read(), False)
+                return
         match self.cmd:
             case "guestbook":
                 if self.data:
@@ -171,6 +182,9 @@ class RequestHandler(BaseHTTPRequestHandler):
             case "post":
                 self.ok(dumps(posts.get(self.data["id"])))
                 return
+            case "images":
+                self.ok(dumps(os.listdir("images")))
+                return
         if tokens.verify(self.data["token"]):
             match self.cmd:
                 case "status":
@@ -182,6 +196,17 @@ class RequestHandler(BaseHTTPRequestHandler):
                     }))
                 case "users":
                     self.ok(dumps(users.all()))
+        else:
+            self.deny()
+
+    def do_PUT(self):
+        self.parseData()
+        if tokens.verify(self.data["token"]):
+            match self.cmd:
+                case "image":
+                    with open("images/"+self.data["filename"], "wb") as file:
+                        file.write(self.file)
+                    self.ok()
         else:
             self.deny()
 
@@ -197,6 +222,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.ok()
                 case "post":
                     posts.delete(self.data["id"])
+                    self.ok()
+                case "images":
+                    os.remove("images/"+self.data["file"])
                     self.ok()
         else:
             self.deny()
