@@ -1,4 +1,4 @@
-# about.skademaskinen.win
+# Skademaskinen | Frontend
 
 <a href="https://about.skademaskinen.win">https://about.skademaskinen.win</a>
 
