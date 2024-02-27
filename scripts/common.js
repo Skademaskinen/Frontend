@@ -34,7 +34,7 @@ console.log("URI: " + uri)
 var links = [
     ["home", uri + "/index.html"],
     ["login", uri + "/login.html"],
-    ["source", "https://github.com/Mast3rwaf1z/Mast3rwaf1z.github.io"],
+    ["source", "https://github.com/Skademaskinen/Frontend"],
     ["contact", uri + "/contact.html"],
     ["guestbook", uri + "/guestbook.html"]
 ]
