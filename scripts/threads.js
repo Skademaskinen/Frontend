@@ -11,47 +11,86 @@ async function setGeneral(){
         description.innerHTML = json.description
     }))
 }
+
+function reorderPosts(posts){
+    return posts.sort((e1,e2) => {
+        if(e1 == null) return true
+        if(e2 == null) return false
+        return e2.value - e1.value
+    })
+}
+
 async function setPosts(){
     // fuckit rewrite
     fetch((await getBackend()) + "/admin/posts?id="+id, {
         method: "get"
-    }).then(response => response.json().then(ids => ids.forEach(async postId => {
-        var div = document.createElement("div")
-        div.className = "post"
-        container.insertChildAtIndex(div, postId)
-        fetch((await getBackend()) + "/admin/post?id="+postId, {method:"get"}).then(response1 => response1.json().then(json => {
-            var inner = document.createElement("div")
-            div.appendChild(inner)
-            div.appendChild(document.createElement("br"))
-            inner.id = postId
-            inner.innerHTML = json.content
-        }))
-        if(await verify()){
-            var deleteButton = document.createElement("button")
-            deleteButton.innerHTML = "Delete"
-            deleteButton.onclick = async () => {
-                fetch((await getBackend()), {
-                    method: "delete",
-                    body: JSON.stringify({
-                        token: getCookie("accessToken"),
-                        id: postId
-                    })
-                }).then(_ => window.location.reload())
+    }).then(response => response.json().then(postsData => reorderPosts(postsData).forEach(async postData => {
+            console.log(postsData)
+            var postId = postData.id
+            var postPriority = postData.value == null ? 0 : postData.value
+            var div = document.createElement("div")
+            div.className = "post"
+            container.insertChildAtIndex(div, postId)
+            fetch((await getBackend()) + "/admin/post?id="+postId, {method:"get"}).then(response1 => response1.json().then(json => {
+                var inner = document.createElement("div")
+                div.appendChild(inner)
+                div.appendChild(document.createElement("br"))
+                inner.id = postId
+                inner.innerHTML = json.content
+            }))
+            if(await verify()){
+                var deleteButton = document.createElement("button")
+                deleteButton.innerHTML = "Delete"
+                deleteButton.onclick = async () => {
+                    fetch((await getBackend())+"/admin/post", {
+                        method: "delete",
+                        body: JSON.stringify({
+                            token: getCookie("accessToken"),
+                            id: postId
+                        })
+                    }).then(_ => window.location.reload())
+                }
+                div.appendChild(deleteButton)
+                div.appendChild(document.createTextNode(" "))
+                var editButton = document.createElement("button")
+                editButton.innerHTML = "Edit"
+                editButton.onclick = async _ => {
+                    var editDiv = document.getElementById("edit-post-div")
+                    editDiv.style.display = editDiv.style.display == "block" ? "none" : "block"
+                    document.cookie = "postEditing="+postId
+                    document.getElementById("edit-post-content").value = document.getElementById(postId).innerHTML
+                }
+                div.appendChild(editButton)
+                var incrementButton = document.createElement("button")
+                incrementButton.innerHTML = "Increment"
+                incrementButton.onclick = async _ => {
+                    fetch((await getBackend())+"/admin/setpriority",{
+                        method: "post",
+                        body:JSON.stringify({
+                            "token":getCookie("accessToken"),
+                            "id":postId,
+                            "value":postPriority+1
+                        })
+                    }).then(_ => window.location.reload())
+                }
+                div.appendChild(incrementButton)
+
+                var decrementButton = document.createElement("button")
+                decrementButton.innerHTML = "Decrement"
+                decrementButton.onclick = async _ => {
+                    fetch((await getBackend())+"/admin/setpriority",{
+                        method: "post",
+                        body:JSON.stringify({
+                            "token":getCookie("accessToken"),
+                            "id":postId,
+                            "value":postPriority-1
+                        })
+                    }).then(_ => window.location.reload())
+                }
             }
-            div.appendChild(deleteButton)
-            div.appendChild(document.createTextNode(" "))
-            var editButton = document.createElement("button")
-            editButton.innerHTML = "Edit"
-            editButton.onclick = async _ => {
-                var editDiv = document.getElementById("edit-post-div")
-                editDiv.style.display = editDiv.style.display == "block" ? "none" : "block"
-                document.cookie = "postEditing="+postId
-                document.getElementById("edit-post-content").value = document.getElementById(postId).innerHTML
-            }
-            div.appendChild(editButton)
-        }
+            div.appendChild(decrementButton)
     }))) 
-}    
+}
 
 async function addButtonsIfAdmin(){
     if(await verify()){
