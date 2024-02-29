@@ -89,6 +89,7 @@ async function setPosts(){
                 }
             }
             div.appendChild(decrementButton)
+            div.appendChild(document.createTextNode(" id: " + postData.id + " priority: " + postData.value))
     }))) 
 }
 
