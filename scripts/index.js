@@ -1,15 +1,8 @@
 
 
-async function doVisit(token){
+async function doVisit(){
     fetch((await getBackend())+"/admin/visit", {
-        method:"post",
-        body: JSON.stringify({
-            token: token,
-            time: Date.now()/1000
-        }),
-        headers: {
-            "Content-Type":"application/json"
-        }
+        method:"get"
     }).then(response => {
         switch(response.status){
             case 200:
@@ -57,20 +50,14 @@ async function commit_history(){
 
 async function getSessionToken(){
     if(getCookie("session") == ""){
-        fetch((await getBackend())+"/admin/session?time="+Date.now()/1000, {
-            method:"get"
-        }).then(response => {
-            switch(response.status){
-                case 200:
-                    response.text().then(text => {
-                        document.cookie = "session=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString()
-                        doVisit(text)
-                    })
-                    break;
-                default:
-                    console.log("WTF, exiting...")
-            }
-        })
+        fetch((await getBackend())+"/admin/session", {
+            method:"post"
+        }).then(response => response.text().then(token => {
+            var date = new Date()
+            var tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59)
+            document.cookie = "session="+ token + "; expires = "+tomorrow.toUTCString()
+            doVisit()
+        }))
     }
     else{
         doVisit(getCookie("session"))
