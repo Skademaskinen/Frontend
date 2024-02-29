@@ -12,7 +12,7 @@ async function post(){
     console.log(message)
     console.log(name)
     console.log(time)
-    fetch((await getBackend())+"/admin/guestbook", {
+    fetch((await getBackend())+"/admin/guestbook/new", {
         method: "post",
         body: JSON.stringify({
             message: message,
@@ -38,7 +38,7 @@ async function post(){
 }
 
 async function generateEntry(id){
-    await fetch((await getBackend())+"/admin/guestbook?id="+id, {
+    await fetch((await getBackend())+"/admin/guestbook/get?id="+id, {
         method: "get"
     }).then(response => {
         switch(response.status){
@@ -90,7 +90,7 @@ async function generateGuestbook(data){
 }
 async function doGuestbook(){
 
-    fetch((await getBackend())+"/admin/guestbook", {
+    fetch((await getBackend())+"/admin/guestbook/ids", {
         method: "get"
     }).then(response => {
         switch(response.status){

@@ -104,7 +104,7 @@ async function makeHeader(){
     var newThreadButtonContainer = document.createElement("div")
     dropdown_content.appendChild(newThreadButtonContainer)
 
-    fetch((await getBackend())+"/admin/threads", {
+    fetch((await getBackend())+"/admin/threads/ids", {
         method:"get"
     }).then(response => response.json().then(ids => {
         ids.forEach(id => {
@@ -113,7 +113,7 @@ async function makeHeader(){
             dropdown_content.appendChild(button)
         })
         ids.forEach(async id => {
-            fetch((await getBackend())+"/admin/thread?id="+id, {
+            fetch((await getBackend())+"/admin/threads/get?id="+id, {
                 method:"get"
             }).then(response1 => response1.json().then(json => {
                 var name = json["name"]
@@ -167,7 +167,7 @@ async function makeHeader(){
     newThreadModalPostButton.onclick = async () => {
         var name = newThreadModalName.value
         var description = newThreadModalDescription.value
-        fetch((await getBackend()) + "/admin/newthread", {
+        fetch((await getBackend()) + "/admin/threads/new", {
             method: "post",
             body: JSON.stringify({
                 token: getCookie("accessToken"),
@@ -224,7 +224,7 @@ async function verify(){
     if(getCookie("verified") == "true"){
         return true
     }
-    return await fetch((await getBackend()) + "/admin/verify", {
+    return await fetch((await getBackend()) + "/admin/tokens/verify", {
         method: "post",
         body: JSON.stringify({
             token:getCookie("accessToken")

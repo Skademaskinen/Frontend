@@ -1,7 +1,7 @@
 
 
 async function doVisit(){
-    fetch((await getBackend())+"/admin/visit", {
+    fetch((await getBackend())+"/admin/visits/get", {
         method:"get"
     }).then(response => {
         switch(response.status){
@@ -50,7 +50,7 @@ async function commit_history(){
 
 async function getSessionToken(){
     if(getCookie("session") == ""){
-        fetch((await getBackend())+"/admin/session", {
+        fetch((await getBackend())+"/admin/visits/new", {
             method:"post"
         }).then(response => response.text().then(token => {
             var date = new Date()

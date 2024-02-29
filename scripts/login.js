@@ -9,7 +9,7 @@ function showPassword(){
 };
 
 async function login(){
-    fetch((await getBackend())+"/admin/auth", {
+    fetch((await getBackend())+"/admin/users/verify", {
         method: "post",
         body: JSON.stringify({
             username: document.getElementById("username").value,
@@ -41,7 +41,7 @@ async function login(){
 }
 
 async function register(){
-    fetch((await getBackend())+"/admin/register", {
+    fetch((await getBackend())+"/admin/users/register", {
         method: "post",
         body: JSON.stringify({
             username: document.getElementById("username").value,
