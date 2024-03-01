@@ -26,7 +26,7 @@ async function login(){
                     console.log(text)
                     document.cookie = "accessToken=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString() + ";SameSite=strict"
                     document.cookie = "username=" + document.getElementById("username").value + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString() + ";SameSite=strict"
-                    window.location.href = uri + "/backend/index.html"
+                    window.location.href = uri + "/admin/index.html"
                 })
                 break
             default:
@@ -73,5 +73,5 @@ async function register(){
 
 var token = getCookie("accessToken")
 if(token != ""){
-    window.location.href = "backend/index.html"
+    window.location.href = "admin/index.html"
 }
