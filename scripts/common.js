@@ -33,7 +33,7 @@ console.log("URI: " + uri)
 
 var links = [
     ["home", uri + "/index.html"],
-    ["login", uri + "/login.html"],
+    ["admin", uri + "/admin/index.html"],
     ["source", "https://github.com/Skademaskinen/Frontend"],
     ["contact", uri + "/contact.html"],
     ["guestbook", uri + "/guestbook.html"]
