@@ -7,7 +7,7 @@ console.log(document.cookie)
 username.innerHTML = getCookie("username")
 
 async function toggleAuth(username){
-    fetch((await getBackend()) +"/admin/users/authorize", {
+    fetch((await getBackend()) +"/users/authorize", {
         method: "post",
         body: JSON.stringify({
             username: username,
@@ -17,7 +17,7 @@ async function toggleAuth(username){
 }
 
 async function deleteUser(username){
-    fetch((await getBackend())+"/admin/users/delete", {
+    fetch((await getBackend())+"/users/delete", {
         method: "delete",
         body: JSON.stringify({
             username: username,
@@ -28,7 +28,7 @@ async function deleteUser(username){
 
 async function getUsers(){
     console.log("getting users")
-    fetch((await getBackend())+"/admin/users/get?token="+getCookie("accessToken"), {
+    fetch((await getBackend())+"/users/get?token="+getCookie("accessToken"), {
         method:"get"
     }).then(response => response.json().then(data => {
         var usersDiv = document.getElementById("users")
