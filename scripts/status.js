@@ -5,7 +5,7 @@ async function getStatus(){
         var id = document.getElementById("id").innerHTML
         switch(id.toLowerCase()){
             case "skademaskinen":
-                var api = await getBackend()+"/admin/status"
+                var api = await getBackend()+"/status"
                 break
             case "home":
                 var api = await getHome()+"/status"

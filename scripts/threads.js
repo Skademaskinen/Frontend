@@ -4,7 +4,7 @@ var container = document.getElementById("posts-container")
 var id = getCookie("currentThread")
 
 async function setGeneral(){
-    fetch((await getBackend()) + "/admin/threads/get?id="+id, {
+    fetch((await getBackend()) + "/threads/get?id="+id, {
         method: "get"
     }).then(response => response.json().then(json => {
         header.innerHTML = json.name
@@ -22,7 +22,7 @@ function reorderPosts(posts){
 
 async function setPosts(){
     // fuckit rewrite
-    fetch((await getBackend()) + "/admin/posts/ids?id="+id, {
+    fetch((await getBackend()) + "/posts/ids?id="+id, {
         method: "get"
     }).then(response => response.json().then(postsData => reorderPosts(postsData).forEach(async postData => {
             var postId = postData.id
@@ -30,7 +30,7 @@ async function setPosts(){
             var div = document.createElement("div")
             div.className = "post"
             container.insertChildAtIndex(div, postId)
-            fetch((await getBackend()) + "/admin/posts/get?id="+postId, {method:"get"}).then(response1 => response1.json().then(json => {
+            fetch((await getBackend()) + "/posts/get?id="+postId, {method:"get"}).then(response1 => response1.json().then(json => {
                 var inner = document.createElement("div")
                 div.appendChild(inner)
                 div.appendChild(document.createElement("br"))
@@ -41,7 +41,7 @@ async function setPosts(){
                 var deleteButton = document.createElement("button")
                 deleteButton.innerHTML = "Delete"
                 deleteButton.onclick = async () => {
-                    fetch((await getBackend())+"/admin/posts/delete", {
+                    fetch((await getBackend())+"/posts/delete", {
                         method: "delete",
                         body: JSON.stringify({
                             token: getCookie("accessToken"),
@@ -63,7 +63,7 @@ async function setPosts(){
                 var incrementButton = document.createElement("button")
                 incrementButton.innerHTML = "Increment"
                 incrementButton.onclick = async _ => {
-                    fetch((await getBackend())+"/admin/posts/order",{
+                    fetch((await getBackend())+"/posts/order",{
                         method: "post",
                         body:JSON.stringify({
                             "token":getCookie("accessToken"),
@@ -77,7 +77,7 @@ async function setPosts(){
                 var decrementButton = document.createElement("button")
                 decrementButton.innerHTML = "Decrement"
                 decrementButton.onclick = async _ => {
-                    fetch((await getBackend())+"/admin/order",{
+                    fetch((await getBackend())+"/order",{
                         method: "post",
                         body:JSON.stringify({
                             "token":getCookie("accessToken"),
@@ -96,7 +96,7 @@ async function addButtonsIfAdmin(){
     if(await verify()){
         document.getElementById("top-editor").style.display = "inline"
         var imagesContainer = document.getElementById("images")
-        fetch((await getBackend()) + "/admin/posts/images/all?token="+getCookie("accessToken"), {
+        fetch((await getBackend()) + "/posts/images/all?token="+getCookie("accessToken"), {
             method: "get"
         }).then(response => response.json().then(json => json.forEach(async path => {
             var imageContainer = document.createElement("div")
@@ -104,14 +104,14 @@ async function addButtonsIfAdmin(){
             button.innerHTML = "Delete"
             imageContainer.appendChild(button)
             var a = document.createElement("a")
-            var path = (await getBackend()) + "/admin/images/"+path
+            var path = (await getBackend()) + "/images/"+path
 
             a.innerHTML =  " "+path
             a.href = path
             imageContainer.appendChild(a)
             imageContainer.style.padding = "5px"
             button.onclick = async () => {
-                fetch((await getBackend()) + "/admin/posts/images/delete", {
+                fetch((await getBackend()) + "/posts/images/delete", {
                     method: "delete",
                     body: JSON.stringify({
                         token: getCookie("accessToken"),
@@ -138,7 +138,7 @@ document.getElementById("create-button").onclick = () => {
 }
 
 document.getElementById("delete-button").onclick = async () => {
-    fetch((await getBackend()) + "/admin/threads/delete", {
+    fetch((await getBackend()) + "/threads/delete", {
         method:"delete",
         body: JSON.stringify({
             token:getCookie("accessToken"),
@@ -155,7 +155,7 @@ document.getElementById("edit-button").onclick = async () => {
 }
 
 document.getElementById("edit-post-button").onclick = async () => {
-    fetch((await getBackend()) + "/admin/posts/edit", {
+    fetch((await getBackend()) + "/posts/edit", {
         method: "post",
         body: JSON.stringify({
             html: document.getElementById("edit-post-content").value,
@@ -168,7 +168,7 @@ document.getElementById("edit-post-button").onclick = async () => {
 
 document.getElementById("post-button").onclick = async () => {
     var html = document.getElementById("new-post-content").value
-    fetch((await getBackend()) + "/admin/posts/new", {
+    fetch((await getBackend()) + "/posts/new", {
         method: "post",
         body: JSON.stringify({
             token: getCookie("accessToken"),
@@ -181,7 +181,7 @@ document.getElementById("post-button").onclick = async () => {
 document.getElementById("edit-confirm").onclick = async () => {
     var name = document.getElementById("edit-thread-name").value
     var description = document.getElementById("edit-thread-description").value
-    fetch((await getBackend()) + "/admin/threads/edit", {
+    fetch((await getBackend()) + "/threads/edit", {
         method: "post",
         body: JSON.stringify({
             id: id,
@@ -196,7 +196,7 @@ document.getElementById("image-upload-button").onclick = async () => {
     var file = document.getElementById("image-upload").files[0]
     if(["image/png", "image/jpg", "image/jpeg", "image/gif"].includes(file.type)){
         document.getElementById("image-upload-status").innerHTML = "uploading..."
-        fetch((await getBackend()) + "/admin/posts/images/new?token="+getCookie("accessToken")+"&filename="+file.name, {
+        fetch((await getBackend()) + "/posts/images/new?token="+getCookie("accessToken")+"&filename="+file.name, {
             method: "put",
             body: file
         }).finally(_ => {

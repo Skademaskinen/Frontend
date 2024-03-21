@@ -9,7 +9,7 @@ function showPassword(){
 };
 
 async function login(){
-    fetch((await getBackend())+"/admin/users/verify", {
+    fetch((await getBackend())+"/users/verify", {
         method: "post",
         body: JSON.stringify({
             username: document.getElementById("username").value,
@@ -26,7 +26,7 @@ async function login(){
                     console.log(text)
                     document.cookie = "accessToken=" + text + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString() + ";SameSite=strict"
                     document.cookie = "username=" + document.getElementById("username").value + "; expires=" + (new Date(Date.now() + 604800000)).toUTCString() + ";SameSite=strict"
-                    window.location.href = uri + "/admin/index.html"
+                    window.location.href = uri + "/index.html"
                 })
                 break
             default:
@@ -41,7 +41,7 @@ async function login(){
 }
 
 async function register(){
-    fetch((await getBackend())+"/admin/users/register", {
+    fetch((await getBackend())+"/users/register", {
         method: "post",
         body: JSON.stringify({
             username: document.getElementById("username").value,

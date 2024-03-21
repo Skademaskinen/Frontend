@@ -7,4 +7,4 @@ read -s password
 echo
 
 
-curl -X 'POST' -d "{\"password\": \"$password\", \"username\":\"$username\"}" https://skademaskinen.win:11034/admin/register
+curl -X 'POST' -d "{\"password\": \"$password\", \"username\":\"$username\"}" https://api.skademaskinen.win:11034/register
