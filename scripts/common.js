@@ -47,7 +47,7 @@ async function getBackend(){
     }).then(response => response.json().then(json => {
         return json["backend"]
     })).catch(e => {
-        return "https://api.skademaskinen.win:11034"
+        return "https://api.skade.dev"
     })
 }
 async function getHome(){
